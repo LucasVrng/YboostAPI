@@ -14,7 +14,7 @@ app.get("/api/recipes", (req, res) => {
 
 // 🍽️ Une recette par ID
 app.get("/api/recipes/:id", (req, res) => {
-  const recipe = recipes.find(r => r.id === parseInt(req.params.id));
+  const recipe = recipes.find((r) => r.id === parseInt(req.params.id));
   if (!recipe) {
     return res.status(404).json({ message: "Recette non trouvée" });
   }
@@ -29,4 +29,6 @@ app.post("/api/recipes", (req, res) => {
 });
 
 const PORT = 5000;
-app.listen(PORT, () => console.log(`✅ API en ligne sur http://localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log(`✅ API en ligne sur http://localhost:${PORT}`),
+);
