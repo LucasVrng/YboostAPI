@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "name": "Tacos mexicains",
+    "country": "Mexique",
+    "ingredients": ["tortillas", "bœuf", "tomates", "oignons", "avocat"],
+    "instructions": "Fais revenir le bœuf, ajoute les légumes et sers dans les tortillas."
+  },
+  {
+    "id": 2,
+    "name": "Sushi japonais",
+    "country": "Japon",
+    "ingredients": ["riz", "poisson cru", "nori", "vinaigre de riz"],
+    "instructions": "Prépare le riz vinaigré, ajoute le poisson et roule dans une feuille de nori."
+  },
+  {
+    "id": 3,
+    "name": "Couscous marocain",
+    "country": "Maroc",
+    "ingredients": ["semoule", "agneau", "légumes", "pois chiches"],
+    "instructions": "Fais cuire la semoule et la viande séparément, puis mélange avec le bouillon et les légumes."
+  },
+  {
+    "id": 4,
+    "name": "Pad Thai",
+    "country": "Thaïlande",
+    "ingredients": ["nouilles de riz", "crevettes", "œufs", "cacahuètes", "sauce poisson"],
+    "instructions": "Fais sauter les nouilles avec les crevettes et les œufs, ajoute la sauce et parsème de cacahuètes."
+  },
+  {
+    "id": 5,
+    "name": "Pizza Margherita",
+    "country": "Italie",
+    "ingredients": ["pâte à pizza", "sauce tomate", "mozzarella", "basilic", "huile d'olive"],
+    "instructions": "Étale la pâte, ajoute la sauce tomate et la mozzarella, puis cuis au four à 250°C pendant 10-12 minutes."
+  },
+  {
+    "id": 6,
+    "name": "Bœuf Bourguignon",
+    "country": "France",
+    "ingredients": ["bœuf", "vin rouge", "carottes", "oignons", "champignons"],
+    "instructions": "Fais mijoter le bœuf dans le vin rouge avec les légumes pendant 3 heures à feu doux."
+  },
+  {
+    "id": 7,
+    "name": "Paella valenciana",
+    "country": "Espagne",
+    "ingredients": ["riz", "poulet", "fruits de mer", "safran", "poivrons"],
+    "instructions": "Fais revenir la viande et les légumes, ajoute le riz et le bouillon au safran, laisse cuire sans remuer."
+  },
+  {
+    "id": 8,
+    "name": "Curry indien",
+    "country": "Inde",
+    "ingredients": ["poulet", "lait de coco", "curry", "tomates", "oignons"],
+    "instructions": "Fais revenir les oignons et les épices, ajoute le poulet et le lait de coco, laisse mijoter 30 minutes."
+  },
+  {
+    "id": 9,
+    "name": "Feijoada",
+    "country": "Brésil",
+    "ingredients": ["haricots noirs", "porc", "saucisses", "riz", "oranges"],
+    "instructions": "Fais cuire les haricots avec les viandes pendant 2 heures, sers avec du riz et des tranches d'orange."
+  },
+  {
+    "id": 10,
+    "name": "Moussaka",
+    "country": "Grèce",
+    "ingredients": ["aubergines", "viande hachée", "béchamel", "tomates", "fromage"],
+    "instructions": "Superpose les aubergines grillées avec la viande et la sauce tomate, recouvre de béchamel et cuis au four."
+  },
+  {
+    "id": 11,
+    "name": "Pho vietnamien",
+    "country": "Vietnam",
+    "ingredients": ["bouillon de bœuf", "nouilles de riz", "bœuf", "herbes fraîches", "citron vert"],
+    "instructions": "Prépare un bouillon parfumé, fais cuire les nouilles, ajoute le bœuf en tranches fines et les herbes."
+  },
+  {
+    "id": 12,
+    "name": "Fish and Chips",
+    "country": "Royaume-Uni",
+    "ingredients": ["poisson blanc", "pommes de terre", "farine", "bière", "huile de friture"],
+    "instructions": "Prépare une pâte à la bière, trempe le poisson, fris avec les pommes de terre coupées en frites."
+  },
+  {
+    "id": 13,
+    "name": "Kimchi jjigae",
+    "country": "Corée du Sud",
+    "ingredients": ["kimchi", "tofu", "porc", "pâte de piment", "oignons verts"],
+    "instructions": "Fais mijoter le kimchi avec le porc et le tofu dans un bouillon épicé pendant 20 minutes."
+  },
+  {
+    "id": 14,
+    "name": "Empanadas",
+    "country": "Argentine",
+    "ingredients": ["pâte à empanadas", "bœuf haché", "olives", "œufs durs", "oignons"],
+    "instructions": "Prépare la farce, garnit les disques de pâte, plie et cuis au four jusqu'à dorure."
+  },
+  {
+    "id": 15,
+    "name": "Bobotie",
+    "country": "Afrique du Sud",
+    "ingredients": ["viande hachée", "curry", "fruits secs", "œufs", "lait"],
+    "instructions": "Fais cuire la viande épicée avec les fruits secs, recouvre d'une crème aux œufs et cuis au four."
+  }
+]
