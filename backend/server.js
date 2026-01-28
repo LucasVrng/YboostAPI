@@ -1,6 +1,8 @@
 import express, { json } from "express";
 import cors from "cors";
 import authRoutes from "./src/routes/authRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+
 import recipes from "../data/recipes.js";
 import ingredients from "../data/ingredients.js";
 import recipeIngredients from "../data/recipeIngredients.js";
@@ -12,11 +14,15 @@ const app = express();
 app.use(cors());
 app.use(json());
 
-// --- ROUTES AUTHENTIFICATION (Nouvelle fonctionnalité) ---
-// Redirige tout ce qui commence par "/api/auth" vers le fichier authRoutes
+// --- ROUTES AUTHENTIFICATION ---
+// Redirige tout ce qui commence par "/api/auth" (Login, Register) vers authRoutes
 app.use("/api/auth", authRoutes);
 
-// --- ROUTES RECETTES (Code existant / Mock data) ---
+// --- ROUTES GESTION UTILISATEURS ---
+// Redirige tout ce qui commence par "/api/users" (Suppression, etc.) vers userRoutes
+app.use("/api/users", userRoutes);
+
+// --- ROUTES RECETTES ---
 // Liste de toutes les recettes
 app.get("/api/recipes", (_req, res) => {
   res.json(recipes);
