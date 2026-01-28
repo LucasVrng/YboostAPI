@@ -9,3 +9,4 @@ CREATE TABLE IF NOT EXISTS recipes (
     ingredients TEXT NOT NULL,
     is_vegan BOOLEAN NOT NULL
 );
+
