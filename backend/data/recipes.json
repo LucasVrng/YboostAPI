@@ -4,49 +4,56 @@
     "name": "Tacos mexicains",
     "country": "Mexique",
     "ingredients": ["tortillas", "bœuf", "tomates", "oignons", "avocat"],
-    "instructions": "Fais revenir le bœuf, ajoute les légumes et sers dans les tortillas."
+    "instructions": "Fais revenir le bœuf, ajoute les légumes et sers dans les tortillas.",
+    "is_vegan": false
   },
   {
     "id": 2,
     "name": "Sushi japonais",
     "country": "Japon",
     "ingredients": ["riz", "poisson cru", "nori", "vinaigre de riz"],
-    "instructions": "Prépare le riz vinaigré, ajoute le poisson et roule dans une feuille de nori."
+    "instructions": "Prépare le riz vinaigré, ajoute le poisson et roule dans une feuille de nori.",
+    "is_vegan": false
   },
   {
     "id": 3,
     "name": "Couscous marocain",
     "country": "Maroc",
     "ingredients": ["semoule", "agneau", "légumes", "pois chiches"],
-    "instructions": "Fais cuire la semoule et la viande séparément, puis mélange avec le bouillon et les légumes."
+    "instructions": "Fais cuire la semoule et la viande séparément, puis mélange avec le bouillon et les légumes.",
+    "is_vegan": false
   },
   {
     "id": 4,
     "name": "Pad Thai",
     "country": "Thaïlande",
     "ingredients": ["nouilles de riz", "crevettes", "œufs", "cacahuètes", "sauce poisson"],
-    "instructions": "Fais sauter les nouilles avec les crevettes et les œufs, ajoute la sauce et parsème de cacahuètes."
+    "instructions": "Fais sauter les nouilles avec les crevettes et les œufs, ajoute la sauce et parsème de cacahuètes.",
+    "is_vegan": false
   },
   {
     "id": 5,
     "name": "Pizza Margherita",
     "country": "Italie",
     "ingredients": ["pâte à pizza", "sauce tomate", "mozzarella", "basilic", "huile d'olive"],
-    "instructions": "Étale la pâte, ajoute la sauce tomate et la mozzarella, puis cuis au four à 250°C pendant 10-12 minutes."
+    "instructions": "Étale la pâte, ajoute la sauce tomate et la mozzarella, puis cuis au four à 250°C pendant 10-12 minutes.",
+    "is_vegan": true
   },
   {
     "id": 6,
     "name": "Bœuf Bourguignon",
     "country": "France",
     "ingredients": ["bœuf", "vin rouge", "carottes", "oignons", "champignons"],
-    "instructions": "Fais mijoter le bœuf dans le vin rouge avec les légumes pendant 3 heures à feu doux."
+    "instructions": "Fais mijoter le bœuf dans le vin rouge avec les légumes pendant 3 heures à feu doux.",
+    "is_vegan": false
   },
   {
     "id": 7,
     "name": "Paella valenciana",
     "country": "Espagne",
     "ingredients": ["riz", "poulet", "fruits de mer", "safran", "poivrons"],
-    "instructions": "Fais revenir la viande et les légumes, ajoute le riz et le bouillon au safran, laisse cuire sans remuer."
+    "instructions": "Fais revenir la viande et les légumes, ajoute le riz et le bouillon au safran, laisse cuire sans remuer.",
+    "is_vegan": true
   },
   {
     "id": 8,

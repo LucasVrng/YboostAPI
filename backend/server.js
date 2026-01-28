@@ -12,12 +12,20 @@ app.use(cors());
 app.use(express.json());
 
 const recipesPath = path.join(__dirname, "data", "recipes.json");
+const countriesPath = path.join(__dirname, "data", "countries.json");
 
 const getRecipes = () =>
   JSON.parse(fs.readFileSync(recipesPath, "utf-8"));
 
+const getCountries = () =>
+  JSON.parse(fs.readFileSync(countriesPath, "utf-8"));
+
 app.get("/api/recipes", (req, res) => {
   res.json(getRecipes());
+});
+
+app.get("/api/countries", (req, res) => {
+  res.json(getCountries());
 });
 
 app.get("/api/recipes/:id", (req, res) => {
