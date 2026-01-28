@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState(``);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/recipes")
@@ -14,7 +15,15 @@ function RecipeList() {
     <div style={{ padding: 20 }}>
       <h1>🍴 Recettes du monde</h1>
 
-      {recipes.map(recipe => (
+      <input
+            type="text"
+            className="input"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search..."
+          />
+            {recipes
+              .filter((recipe) => recipe.name.toLowerCase().includes(search.toLowerCase()))
+              .map(recipe => (
         <Link
           key={recipe.id}
           to={`/recipe/${recipe.id}`}
