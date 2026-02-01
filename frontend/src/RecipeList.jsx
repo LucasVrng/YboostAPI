@@ -4,67 +4,69 @@ import { Link } from "react-router-dom";
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [selectedCountry,setSelectedCountry]=useState("All")
-  // const [ingredients,setIngredients]=useState("All")
-  const [search, setSearch] = useState(``);
-  const  [isChecked,setIsChecked] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState("All");
+  const [search, setSearch] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
-  const toggleIsChecked = () => setIsChecked(value => !value);
+  const toggleIsChecked = () => setIsChecked(v => !v);
 
+  // Fetch recipes avec filtres
   useEffect(() => {
-    fetch("http://localhost:5000/api/recipes")
+    const params = new URLSearchParams();
+
+    if (selectedCountry !== "All") {
+      params.append("country", selectedCountry);
+    }
+
+    if (isChecked) {
+      params.append("is_vegan", "true");
+    }
+
+    if (search) {
+      params.append("search", search);
+    }
+
+    fetch(`http://localhost:5000/api/recipes?${params.toString()}`)
       .then(res => res.json())
       .then(data => setRecipes(data));
-  }, []);
+  }, [selectedCountry, isChecked, search]);
 
-    useEffect(() => {
+  // 🔹 Fetch countries
+  useEffect(() => {
     fetch("http://localhost:5000/api/countries")
       .then(res => res.json())
       .then(data => setCountries(data));
   }, []);
-
-  const RecipesToFilter = recipes.filter((value)=>{
-    if(selectedCountry==="All"){
-      return true
-    }else{
-      return (value.country===selectedCountry && value.is_vegan===isChecked) 
-      }
-    }
-  )
 
   return (
     <div>
       <h1>🍴 Recettes du monde</h1>
 
       <input
-            type="text"
-            className="input"
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search..."
-          />
-          {/* <h2>Ingredients:</h2>
-          <input
-            type="text"
-            className="input"
-            onChange={(e) => setIngredientSearch(e.target.value)}
-            placeholder="Search an ingredient..."
-          /> */}
+        type="text"
+        className="input"
+        onChange={e => setSearch(e.target.value)}
+        placeholder="Search..."
+      />
 
-    <input type="checkbox" id="is_vegan" name="is_vegan" value={isChecked} onChange={toggleIsChecked}/>
-    <label for="is_vegan">Plat Végan</label>
+      <input
+        type="checkbox"
+        id="is_vegan"
+        checked={isChecked}
+        onChange={toggleIsChecked}
+      />
+      <label htmlFor="is_vegan">Plat Végan</label>
 
-        <select name="filter" onChange={e => setSelectedCountry(e.target.value)}>
-          <option value="All">Filter by country</option>
+      <select onChange={e => setSelectedCountry(e.target.value)}>
+        <option value="All">Filter by country</option>
+        {countries.map(country => (
+          <option key={country.id || country.name} value={country.name}>
+            {country.name}
+          </option>
+        ))}
+      </select>
 
-          {countries.map( country => (
-            <option value={country.name}>{country.name}</option>
-
-          ))}
-        </select>
-
-            {RecipesToFilter
-              .filter((recipe) => recipe.name.toLowerCase().includes(search.toLowerCase()))
-              .map( recipe => ( 
+      {recipes.map(recipe => (
         <Link
           key={recipe.id}
           to={`/recipe/${recipe.id}`}
