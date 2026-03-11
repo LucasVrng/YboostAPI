@@ -15,6 +15,22 @@ function RecipeList() {
     <div style={{ padding: 20 }}>
       <h1>🍴 Recettes du monde</h1>
 
+      <select name="countries" id="countries">
+        <option value="France">France</option>
+        <option value="Espagne">Espagne</option>
+        <option value="Angleterre">Angleterre</option>
+        <option value="Japon">Japon</option>
+        <option value="Mexique">Mexique</option>
+        <option value="Maroc">Maroc</option>
+        <option value="Thailande">Thailande</option>
+        <option value="Italie">Italie</option>
+        <option value="Inde">Inde</option>
+        <option value="Brésil">Brésil</option>
+        <option value="Grèce">Grèce</option>  
+      </select>
+
+      
+
       <input
             type="text"
             className="input"
