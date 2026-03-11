@@ -16,20 +16,29 @@ function RecipeList() {
       <h1>🍴 Recettes du monde</h1>
 
       <select name="countries" id="countries">
+        <option value="">--Please choose an option</option>
         <option value="France">France</option>
         <option value="Espagne">Espagne</option>
-        <option value="Angleterre">Angleterre</option>
-        <option value="Japon">Japon</option>
-        <option value="Mexique">Mexique</option>
-        <option value="Maroc">Maroc</option>
-        <option value="Thailande">Thailande</option>
         <option value="Italie">Italie</option>
-        <option value="Inde">Inde</option>
+        <option value="Portugal">Portugal</option>
+        <option value="Maroc">Maroc</option>
+        <option value="USA">USA</option>
+        <option value="Canada">Canada</option>
+        <option value="Russie">Russie</option>
+        <option value="Japon">Japon</option>
+        <option value="Chine">Chine</option>
         <option value="Brésil">Brésil</option>
-        <option value="Grèce">Grèce</option>  
       </select>
 
-      
+      <input type="checkbox" id="isVegan">
+        <label for="isVegan">Is Vegan</label> 
+      </input>
+
+  <select name="time" id="time">
+    <option value="5">Less Than 5 Minutes</option>
+    <option value="5and10">Between 5 Minutes And 10 minutes</option>
+    <option value="10and30">Between 10 Minutes And 30 minutes</option>
+  </select>
 
       <input
             type="text"
