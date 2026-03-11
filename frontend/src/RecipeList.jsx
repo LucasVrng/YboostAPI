@@ -23,7 +23,7 @@ function RecipeList() {
     }
 
     if (search) {
-      params.append("search", search);
+      params.append("q", search);
     }
 
     fetch(`http://localhost:5000/api/recipes?${params.toString()}`)
@@ -33,7 +33,7 @@ function RecipeList() {
 
   // 🔹 Fetch countries
   useEffect(() => {
-    fetch("http://localhost:5000/api/countries")
+    fetch("http://localhost:5000/api/recipes/countries")
       .then(res => res.json())
       .then(data => setCountries(data));
   }, []);
@@ -60,8 +60,8 @@ function RecipeList() {
       <select onChange={e => setSelectedCountry(e.target.value)}>
         <option value="All">Filter by country</option>
         {countries.map(country => (
-          <option key={country.id || country.name} value={country.name}>
-            {country.name}
+          <option key={country} value={country}>
+            {country}
           </option>
         ))}
       </select>
@@ -82,7 +82,7 @@ function RecipeList() {
             }}
           >
             <h2>{recipe.name}</h2>
-            <p><strong>Pays :</strong> {recipe.country}</p>
+            <p><strong>Pays :</strong> {recipe.country_name}</p>
           </div>
         </Link>
       ))}

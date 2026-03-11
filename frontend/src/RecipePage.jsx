@@ -11,14 +11,14 @@ function RecipePage() {
       .then(data => setRecipe(data));
   }, [id]);
 
-  if (!recipe) return <p>Chargement...</p>;
+  if (!recipe) return <p>Erreur lors du fetch de la recette</p>;
 
   return (
     <div style={{ padding: 20 }}>
       <Link to="/">← Retour</Link>
 
       <h1>{recipe.name}</h1>
-      <p><strong>Pays :</strong> {recipe.country}</p>
+      <p><strong>Pays :</strong> {recipe.country_name}</p>
 
       <h3>Ingrédients</h3>
       <ul>
