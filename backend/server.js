@@ -3,9 +3,7 @@ import cors from "cors";
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 
-import recipes from "../data/recipes.js";
-import ingredients from "../data/ingredients.js";
-import recipeIngredients from "../data/recipeIngredients.js";
+import pool from "./src/config/db.js"
 
 const app = express();
 
@@ -24,8 +22,24 @@ app.use("/api/users", userRoutes);
 
 // --- ROUTES RECETTES ---
 // Liste de toutes les recettes
-app.get("/api/recipes", (_req, res) => {
-  res.json(recipes);
+app.get("/api/recipes", async (_req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM recipes");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.get("/api/countries", async (_req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM country");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 // Une recette par ID avec jointure manuelle des ingrédients
