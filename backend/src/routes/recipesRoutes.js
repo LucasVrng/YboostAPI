@@ -14,4 +14,5 @@ router.post('/recipes', postRecipes);
 router.put('/recipes', putRecipes);
 router.delete('/recipes', deleteRecipes);
 
+router.get('/country', getCountry);
 export default router;

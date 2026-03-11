@@ -71,3 +71,13 @@ export const deleteRecipes = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+export const getCountry = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT DISTINCT country FROM recipes');
+        res.json(rows.map(row => row.country));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
