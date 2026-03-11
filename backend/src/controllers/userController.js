@@ -18,3 +18,62 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: "Erreur Serveur." });
   }
 };
+
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, mail, password, favorite } = req.body;
+
+    const [users] = await pool.query("SELECT * FROM User WHERE id = ?", [id]);
+    if (users.length === 0) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+
+    const fieldsToUpdate = [];
+    const values = [];
+
+    if (username) {
+      fieldsToUpdate.push("username = ?");
+      values.push(username);
+    }
+
+    if (favorite) {
+      fieldsToUpdate.push("favorite = ?");
+      values.push(favorite);
+    }
+
+    if (mail) {
+      const [existingMail] = await pool.query(
+        "SELECT * FROM User WHERE mail = ? AND id != ?"[(mail, id)],
+      );
+      if (existingMail.length > 0) {
+        return res.status(409).json({
+          message: "Cet email est déjà utilisé par un autre utilisateur.",
+        });
+      }
+      fieldsToUpdate.push("mail = ?");
+      values.push(mail);
+    }
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      fieldsToUpdate.push("password = ?");
+      values.push(hashedPassword);
+    }
+
+    if (fieldsToUpdate.length === 0) {
+      return res.status(400).json({ message: "Aucune donnée à modifier." });
+    }
+
+    const sql = `UPDATE User SET ${fieldsToUpdate.join(", ")} WHERE id = ?`;
+    values.push(id);
+
+    await pool.query(sql, values);
+
+    res.status(200).json({ message: "Utilisateur mis à jour avec succès." });
+  } catch (error) {
+    console.error("Erreur Update User: ", error);
+    res.status(500).json({ message: "Erreur Serveur." });
+  }
+};
