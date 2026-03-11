@@ -2,17 +2,16 @@ import pool from "../config/db.js";
 
 export const getRecipes = async (req, res) => {
     try {
-        const { id } = req.params;
         const { q, country, is_vegan } = req.query;
 
-        let query = 'SELECT * FROM recipes';
+        let query = `
+            SELECT recipes.*, country.name AS country_name 
+            FROM recipes 
+            LEFT JOIN country ON recipes.country_id = country.id
+        `;
         let conditions = [];
         let values = [];
 
-        if (id) {
-            conditions.push('id = ?');
-            values.push(id);
-        }
         if (q) {
             conditions.push('name LIKE ?');
             values.push(`%${q}%`);
@@ -32,6 +31,22 @@ export const getRecipes = async (req, res) => {
 
         const [rows] = await pool.query(query, values);
         res.json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+export const getRecipeById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [rows] = await pool.query('SELECT * FROM recipes WHERE id = ?', [id]);
+        
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Recipe not found' });
+        }
+        
+        res.json(rows[0]);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -74,8 +89,8 @@ export const deleteRecipes = async (req, res) => {
 
 export const getCountry = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT DISTINCT country FROM recipes');
-        res.json(rows.map(row => row.country));
+        const [rows] = await pool.query('SELECT * FROM country');
+        res.json(rows.map(row => row.name));
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

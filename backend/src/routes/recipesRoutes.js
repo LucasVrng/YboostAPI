@@ -1,14 +1,11 @@
 import express from 'express';
-import { getRecipes } from '../controllers/filterController.js';
+import { getRecipes, postRecipes, putRecipes, deleteRecipes, getCountry, getRecipeById } from '../controllers/recipesController.js';
 
 const router = express.Router();
 
+router.get('/recipes/countries', getCountry);
+router.get('/recipes/:id', getRecipeById);
 router.get('/recipes', getRecipes);
-router.get('/recipes/:id', getRecipes);
-router.get('/recipes?q={name}', getRecipes);
-router.get('/recipes?country={choice}', getRecipes);
-router.get('/recipes?is_vegan=true', getRecipes);
-router.get('/recipes/{id}/ingredients', getRecipes);
 
 router.post('/recipes', postRecipes);
 router.put('/recipes', putRecipes);
