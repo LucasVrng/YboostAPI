@@ -11,7 +11,7 @@ function RecipePage() {
       .then(data => setRecipe(data));
   }, [id]);
 
-  if (!recipe) return <p>Chargement...</p>;
+  if (!recipe) return <p>Erreur lors du fetch de la recette</p>;
 
   return (
     <div style={{ padding: 20 }}>
