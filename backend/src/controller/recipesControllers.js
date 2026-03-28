@@ -13,11 +13,11 @@ export const getRecipes = async (req, res) => {
         let values = [];
 
         if (q) {
-            conditions.push('name LIKE ?');
+            conditions.push('recipes.name LIKE ?');
             values.push(`%${q}%`);
         }
         if (country) {
-            conditions.push('country = ?');
+            conditions.push('country.name = ?');
             values.push(country);
         }
         if (is_vegan) {

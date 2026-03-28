@@ -3,13 +3,11 @@ import { getRecipes, postRecipes, putRecipes, deleteRecipes, getCountry, getReci
 
 const router = express.Router();
 
-router.get('/recipes/countries', getCountry);
-router.get('/recipes/:id', getRecipeById);
-router.get('/recipes', getRecipes);
+router.get('/countries', getCountry);
+router.get('/:id', getRecipeById);
+router.get('/', getRecipes);
 
-router.post('/recipes', postRecipes);
-router.put('/recipes', putRecipes);
-router.delete('/recipes', deleteRecipes);
-
-router.get('/country', getCountry);
+router.post('/', postRecipes);
+router.put('/', putRecipes);
+router.delete('/', deleteRecipes);
 export default router;
