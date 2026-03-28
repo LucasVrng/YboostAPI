@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+// En haut de RecipeList.jsx
+import "./RecipeList.css";
 
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
@@ -23,7 +25,7 @@ function RecipeList() {
     }
 
     if (search) {
-      params.append("search", search);
+      params.append("q", search);
     }
 
     fetch(`http://localhost:5000/api/recipes?${params.toString()}`)
@@ -33,7 +35,7 @@ function RecipeList() {
 
   // 🔹 Fetch countries
   useEffect(() => {
-    fetch("http://localhost:5000/api/countries")
+    fetch("http://localhost:5000/api/recipes/countries")
       .then(res => res.json())
       .then(data => setCountries(data));
   }, []);
@@ -42,12 +44,15 @@ function RecipeList() {
     <div>
       <h1>🍴 Recettes du monde</h1>
 
-      <input
-        type="text"
-        className="input"
-        onChange={e => setSearch(e.target.value)}
-        placeholder="Search..."
-      />
+      <div className="search">
+        <span className="search-icon material-symbols-outlined">search</span> 
+        <input
+          type="text"
+          className="search-input"
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Search..."
+        />
+    </div>
 
       <input
         type="checkbox"
@@ -55,13 +60,13 @@ function RecipeList() {
         checked={isChecked}
         onChange={toggleIsChecked}
       />
-      <label htmlFor="is_vegan">Plat Végan</label>
+      <label htmlFor="is_vegan">Plat Végan</label>  
 
       <select onChange={e => setSelectedCountry(e.target.value)}>
         <option value="All">Filter by country</option>
         {countries.map(country => (
-          <option key={country.id || country.name} value={country.name}>
-            {country.name}
+          <option key={country} value={country}>
+            {country}
           </option>
         ))}
       </select>
@@ -82,7 +87,7 @@ function RecipeList() {
             }}
           >
             <h2>{recipe.name}</h2>
-            <p><strong>Pays :</strong> {recipe.country}</p>
+            <p><strong>Pays :</strong> {recipe.country_name}</p>
           </div>
         </Link>
       ))}

@@ -10,7 +10,10 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10, // Nombre max de connexions simultanées
   queueLimit: 0,
+  charset: "utf8mb4",
 });
+
+pool.query("SET NAMES utf8mb4");
 
 try {
   const [rows] = await pool.query("SELECT 1");

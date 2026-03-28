@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import recipesRoutes from "./src/routes/recipesRoutes.js";
 
 import pool from "./src/config/db.js"
 
@@ -21,49 +22,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 // --- ROUTES RECETTES ---
-// Liste de toutes les recettes
-app.get("/api/recipes", async (_req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM recipes");
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-app.get("/api/countries", async (_req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM country");
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-// Une recette par ID avec jointure manuelle des ingrédients
-app.get("/api/recipes/:id", (req, res) => {
-  const recipe = recipes.find((r) => r.id === parseInt(req.params.id));
-  if (!recipe) return res.status(404).json({ message: "Recette non trouvée" });
-
-  const links = recipeIngredients.filter(
-    (link) => link.recipe_id === recipe.id,
-  );
-  const recipeIngredientsList = links.map((link) =>
-    ingredients.find((ing) => ing.id === link.ingredients_id),
-  );
-
-  res.json({ ...recipe, ingredients: recipeIngredientsList });
-});
-
-// Ajouter une nouvelle recette (stockage mémoire temporaire)
-app.post("/api/recipes", (req, res) => {
-  const newRecipe = { id: Date.now(), ...req.body };
-
-  recipes.push(newRecipe);
-  res.status(201).json(newRecipe);
-});
+// Redirige tout ce qui commence par "/api/recipes" (Suppression, etc.) vers recipesRoutes
+app.use("/api/recipes", recipesRoutes);
 
 // Lancement du serveur
 const PORT = 5000;

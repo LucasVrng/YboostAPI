@@ -18,14 +18,14 @@ function RecipePage() {
       <Link to="/">← Retour</Link>
 
       <h1>{recipe.name}</h1>
-      <p><strong>Pays :</strong> {recipe.country}</p>
+      <p><strong>Pays :</strong> {recipe.country_name}</p>
 
-      <h3>Ingrédients</h3>
+      {/* <h3>Ingrédients</h3>
       <ul>
-        {recipe.ingredients.map((i, index) => (
-          <li key={index}>{i}</li>
+        {recipe.ingredients.split(",").map((i, index) => (
+          <li key={index}>{i.trim()}</li>
         ))}
-      </ul>
+      </ul> */}
 
       <p>
         <strong>Préparation :</strong><br />
