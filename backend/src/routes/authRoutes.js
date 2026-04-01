@@ -3,7 +3,11 @@ import { register } from "../controllers/authController.js";
 
 const router = express.Router();
 
-// Route POST : Quand on appelle /register, on lance la fonction 'register' du contrôleur
+/**
+ * @file authRoutes.js
+ * @route POST /register
+ * @description Delegate registration to the auth controller.
+ */
 router.post("/register", register);
 
 export default router;

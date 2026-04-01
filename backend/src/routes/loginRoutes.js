@@ -3,7 +3,11 @@ import { login } from "../controllers/loginController.js";
 
 const router = express.Router();
 
-// Route POST : Quand on appelle /login, on lance la fonction 'login' du contrôleur
+/**
+ * @file loginRoutes.js
+ * @route POST /login
+ * @description Delegate authentication to the login controller.
+ */
 router.post("/login", login);
 
 export default router;
