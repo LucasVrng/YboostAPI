@@ -23,11 +23,13 @@ function RecipeList() {
       });
   }, []);
 
-  if (loading) return <p style={{ padding: 20 }}>Chargement...</p>;
-  if (error) return <p style={{ padding: 20, color: "red" }}>{error}</p>;
-
   return (
     <div style={{ padding: 20 }}>
+      <nav style={{ marginBottom: 20, display: "flex", gap: 16 }}>
+        <Link to="/">Accueil</Link>
+        <Link to="/create">Créer une recette</Link>
+      </nav>
+
       <h1>🍴 Recettes du monde</h1>
 
       <input
@@ -36,32 +38,38 @@ function RecipeList() {
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search..."
       />
-      {recipes
-        .filter((recipe) =>
-          recipe.name.toLowerCase().includes(search.toLowerCase()),
-        )
-        .map((recipe) => (
-          <Link
-            key={recipe.id}
-            to={`/recipe/${recipe.id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <div
-              style={{
-                border: "1px solid #ccc",
-                borderRadius: 10,
-                padding: 15,
-                marginBottom: 15,
-                cursor: "pointer",
-              }}
+
+      {loading && <p>Chargement...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {!loading &&
+        !error &&
+        recipes
+          .filter((recipe) =>
+            recipe.name.toLowerCase().includes(search.toLowerCase()),
+          )
+          .map((recipe) => (
+            <Link
+              key={recipe.id}
+              to={`/recipe/${recipe.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
-              <h2>{recipe.name}</h2>
-              <p>
-                <strong>Pays :</strong> {recipe.country}
-              </p>
-            </div>
-          </Link>
-        ))}
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: 10,
+                  padding: 15,
+                  marginBottom: 15,
+                  cursor: "pointer",
+                }}
+              >
+                <h2>{recipe.name}</h2>
+                <p>
+                  <strong>Pays :</strong> {recipe.country}
+                </p>
+              </div>
+            </Link>
+          ))}
     </div>
   );
 }
