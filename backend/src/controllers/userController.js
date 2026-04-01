@@ -1,15 +1,23 @@
 import pool from "../config/db.js";
 import bcrypt from "bcrypt";
 
-// Supression d'un utilisateur par son ID
+/**
+ * @file userController.js
+ * @description User management controller (delete/update).
+ */
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const deleteUser = async (req, res) => {
   try {
-    const { id } = req.params; // On récupère l'ID dans l'url (ex: /users/1)
+    const { id } = req.params;
 
-    // Exécution de la requête SQL
+    /** Execute deletion with a parameterized SQL query. */
     const [result] = await pool.query("DELETE FROM User WHERE id = ?", [id]);
 
-    // Si aucune ligne n'a été affectée, c'est que l'utilisateur n'existait pas
+    /** No affected row means the target user does not exist. */
     if (result.affectedRows === 0) {
       return res
         .status(404)
@@ -24,6 +32,10 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;

@@ -4,6 +4,17 @@ import {
   removeFavoriteForUser,
 } from "../services/favoriteService.js";
 
+/**
+ * @file favoriteController.js
+ * @description HTTP controller for favorites.
+ * Controllers translate request data to service calls and convert typed
+ * service errors into consistent `{ error, details }` API responses.
+ */
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const addFavorite = async (req, res) => {
   try {
     const { userId, favorite } = req.body;
@@ -24,6 +35,10 @@ export const addFavorite = async (req, res) => {
   }
 };
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const removeFavorite = async (req, res) => {
   try {
     const result = await removeFavoriteForUser(req.params.id);
@@ -46,6 +61,10 @@ export const removeFavorite = async (req, res) => {
   }
 };
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const getUserFavorites = async (req, res) => {
   try {
     const result = await fetchUserFavorite(req.params.userId);

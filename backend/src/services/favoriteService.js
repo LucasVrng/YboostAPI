@@ -4,6 +4,19 @@ import {
   setUserFavorite,
 } from "../models/favorite.js";
 
+/**
+ * @file favoriteService.js
+ * @description Service layer for favorites.
+ * Normalizes inputs, applies business validation, and throws typed errors
+ * that controllers map to HTTP responses.
+ */
+
+/**
+ * @param {number} status
+ * @param {string} error
+ * @param {string} details
+ * @returns {Error & {status:number,error:string,details:string}}
+ */
 const createServiceError = (status, error, details) => {
   const serviceError = new Error(details);
   serviceError.status = status;
@@ -12,11 +25,20 @@ const createServiceError = (status, error, details) => {
   return serviceError;
 };
 
+/**
+ * @param {unknown} value
+ * @returns {number|null}
+ */
 const toPositiveInt = (value) => {
   const parsed = Number.parseInt(value, 10);
   return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 };
 
+/**
+ * @param {unknown} userIdValue
+ * @param {unknown} favoriteValue
+ * @returns {Promise<{userId:number,favorite:number}>}
+ */
 export const addFavoriteForUser = async (userIdValue, favoriteValue) => {
   const userId = toPositiveInt(userIdValue);
   const favorite = toPositiveInt(favoriteValue);
@@ -37,6 +59,10 @@ export const addFavoriteForUser = async (userIdValue, favoriteValue) => {
   return { userId, favorite };
 };
 
+/**
+ * @param {unknown} userIdValue
+ * @returns {Promise<{userId:number}>}
+ */
 export const removeFavoriteForUser = async (userIdValue) => {
   const userId = toPositiveInt(userIdValue);
 
@@ -56,6 +82,10 @@ export const removeFavoriteForUser = async (userIdValue) => {
   return { userId };
 };
 
+/**
+ * @param {unknown} userIdValue
+ * @returns {Promise<{userId:number,favorite:number|null}>}
+ */
 export const fetchUserFavorite = async (userIdValue) => {
   const userId = toPositiveInt(userIdValue);
 

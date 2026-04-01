@@ -3,7 +3,12 @@ import { deleteUser, updateUser } from "../controllers/userController.js";
 
 const router = express.Router();
 
-// DELETE http://localhost:5000/api/users/:id
+/**
+ * @file userRoutes.js
+ * @route DELETE /api/users/:id
+ * @route PUT /api/users/:id
+ * @description Delegate user deletion and update actions to userController.
+ */
 router.delete("/:id", deleteUser);
 
 router.put("/:id", updateUser);

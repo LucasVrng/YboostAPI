@@ -7,6 +7,11 @@ import {
 
 const router = express.Router();
 
+/**
+ * @file favoriteRoutes.js
+ * @description Favorite endpoints mapping to controller handlers.
+ */
+
 router.post("/", addFavorite);
 router.delete("/:id", removeFavorite);
 router.get("/user/:userId", getUserFavorites);

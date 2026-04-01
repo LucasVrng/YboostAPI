@@ -11,28 +11,29 @@ import recipeIngredients from "../data/recipeIngredients.js";
 
 const app = express();
 
-// --- Middlewares ---
-// Autorise les requêtes depuis l'extérieur et permet de lire le JSON entrant
+/**
+ * @file server.js
+ * @description Backend API entrypoint and route mounting.
+ */
+
+/** Configure global middlewares. */
 app.use(cors());
 app.use(json());
 
-// --- ROUTES AUTHENTIFICATION ---
-// Redirige tout ce qui commence par "/api/auth" (Login, Register) vers authRoutes
+/** Mount authentication routes under /api/auth. */
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", loginRoutes);
 
-// --- ROUTES GESTION UTILISATEURS ---
-// Redirige tout ce qui commence par "/api/users" (Suppression, etc.) vers userRoutes
+/** Mount user and favorite routes. */
 app.use("/api/users", userRoutes);
 app.use("/api/favorites", favoriteRoutes);
 
-// --- ROUTES RECETTES ---
-// Liste de toutes les recettes
+/** Return all in-memory recipes. */
 app.get("/api/recipes", (_req, res) => {
   res.json(recipes);
 });
 
-// Une recette par ID avec jointure manuelle des ingrédients
+/** Return one recipe with its ingredients assembled from local datasets. */
 app.get("/api/recipes/:id", (req, res) => {
   const recipe = recipes.find((r) => r.id === parseInt(req.params.id));
   if (!recipe) {
@@ -51,7 +52,7 @@ app.get("/api/recipes/:id", (req, res) => {
   res.json({ ...recipe, ingredients: recipeIngredientsList });
 });
 
-// Ajouter une nouvelle recette (stockage mémoire temporaire)
+/** Add a recipe to in-memory storage (non-persistent). */
 app.post("/api/recipes", (req, res) => {
   const newRecipe = { id: Date.now(), ...req.body };
 
@@ -59,7 +60,7 @@ app.post("/api/recipes", (req, res) => {
   res.status(201).json(newRecipe);
 });
 
-// Lancement du serveur
+/** Start the API server. */
 const PORT = 5000;
 app.listen(PORT, () =>
   console.log(`API en ligne sur http://localhost:${PORT}`),

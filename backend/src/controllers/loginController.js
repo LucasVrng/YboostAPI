@@ -1,6 +1,15 @@
-import pool from "../config/db.js"; // Import de la connexion BDD
-import bcrypt from "bcrypt"; // Outil pour crypter les mots de passe
+import pool from "../config/db.js";
+import bcrypt from "bcrypt";
 
+/**
+ * @file loginController.js
+ * @description Login controller with mail/username lookup and bcrypt verification.
+ */
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const login = async (req, res) => {
   const { username, mail, password } = req.body;
 
@@ -25,8 +34,7 @@ export const login = async (req, res) => {
     }
 
     const user = users[0];
-    // 2. Comparer le mot de passe saisi avec le mot de passe haché en base
-    // bcrypt.compare(mot_de_passe_clair, mot_de_passe_haché)
+    /** Compare plain input password against stored bcrypt hash. */
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
