@@ -1,9 +1,10 @@
-import React, { Component, useState } from "react";
+import { useMemo, useState } from "react";
 import CountryList from "react-select-country-list";
 import { useNavigate } from "react-router-dom";
+import countryList from "react-select-country-list";
 
 function RecipeCreation() {
-  const { formData, setFormData } = useState({
+  const [formData, setFormData] = useState({
     name: "",
     time: "",
     instructions: "",
@@ -16,6 +17,7 @@ function RecipeCreation() {
 
   const { error, setError } = useState("");
   const { loading, setLoading } = useState(false);
+  const countries = useMemo(() => countryList().getData(), []);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -61,7 +63,7 @@ function RecipeCreation() {
           required
         />
         <input
-          type="nbr"
+          type="number"
           id="time"
           name="time"
           placeholder="Temps de cuisson"
@@ -80,15 +82,21 @@ function RecipeCreation() {
           disabled={loading}
           required
         />
-        <CountryList
-          id="country"
+        <select
+          type="country"
           name="country"
-          placeholder="Pays d'origine"
           value={formData.country}
           onChange={handleChange}
           disabled={loading}
           required
-        />
+        >
+          <option value="">Pays d'origine</option>
+          {countries.map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           id="image_url"
