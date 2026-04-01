@@ -4,12 +4,27 @@ import { Link } from "react-router-dom";
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState(``);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:5000/api/recipes")
-      .then((res) => res.json())
-      .then((data) => setRecipes(data));
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        setRecipes(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(`Impossible de charger les recettes : ${err.message}`);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) return <p style={{ padding: 20 }}>Chargement...</p>;
+  if (error) return <p style={{ padding: 20, color: "red" }}>{error}</p>;
 
   return (
     <div style={{ padding: 20 }}>
