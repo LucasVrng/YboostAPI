@@ -7,7 +7,10 @@ export const register = async (req, res) => {
 
     // 1. Validation : On vérifie que tout est rempli
     if (!username || !mail || !password) {
-      return res.status(400).json({ message: "Tous les champs sont requis." });
+      return res.status(400).json({
+        error: "ValidationError",
+        details: "Tous les champs sont requis.",
+      });
     }
 
     // 2. Vérification : On regarde si l'email existe déjà en base
@@ -17,7 +20,10 @@ export const register = async (req, res) => {
     );
 
     if (existingUser.length > 0) {
-      return res.status(409).json({ message: "Cet email est déjà utilisé." });
+      return res.status(409).json({
+        error: "Conflict",
+        details: "Cet email est déjà utilisé.",
+      });
     }
 
     // 3. Sécurité : On hache le mot de passe (ne jamais stocker en clair !)
@@ -38,6 +44,9 @@ export const register = async (req, res) => {
   } catch (error) {
     // Gestion des erreurs imprévues (ex: BDD éteinte)
     console.error("Erreur Register:", error);
-    res.status(500).json({ message: "Erreur Serveur." });
+    res.status(500).json({
+      error: "InternalServerError",
+      details: "Erreur Serveur.",
+    });
   }
 };

@@ -1,7 +1,9 @@
 import express, { json } from "express";
 import cors from "cors";
 import authRoutes from "./src/routes/authRoutes.js";
+import loginRoutes from "./src/routes/loginRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import favoriteRoutes from "./src/routes/favoriteRoutes.js";
 
 import recipes from "../data/recipes.js";
 import ingredients from "../data/ingredients.js";
@@ -17,10 +19,12 @@ app.use(json());
 // --- ROUTES AUTHENTIFICATION ---
 // Redirige tout ce qui commence par "/api/auth" (Login, Register) vers authRoutes
 app.use("/api/auth", authRoutes);
+app.use("/api/auth", loginRoutes);
 
 // --- ROUTES GESTION UTILISATEURS ---
 // Redirige tout ce qui commence par "/api/users" (Suppression, etc.) vers userRoutes
 app.use("/api/users", userRoutes);
+app.use("/api/favorites", favoriteRoutes);
 
 // --- ROUTES RECETTES ---
 // Liste de toutes les recettes
@@ -31,7 +35,11 @@ app.get("/api/recipes", (_req, res) => {
 // Une recette par ID avec jointure manuelle des ingrédients
 app.get("/api/recipes/:id", (req, res) => {
   const recipe = recipes.find((r) => r.id === parseInt(req.params.id));
-  if (!recipe) return res.status(404).json({ message: "Recette non trouvée" });
+  if (!recipe) {
+    return res
+      .status(404)
+      .json({ error: "NotFound", details: "Recette non trouvée" });
+  }
 
   const links = recipeIngredients.filter(
     (link) => link.recipe_id === recipe.id,

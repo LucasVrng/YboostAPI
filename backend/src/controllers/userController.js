@@ -1,4 +1,5 @@
 import pool from "../config/db.js";
+import bcrypt from "bcrypt";
 
 // Supression d'un utilisateur par son ID
 export const deleteUser = async (req, res) => {
@@ -10,12 +11,16 @@ export const deleteUser = async (req, res) => {
 
     // Si aucune ligne n'a été affectée, c'est que l'utilisateur n'existait pas
     if (result.affectedRows === 0) {
-      return res.status(400).json({ message: "Utilisateur non trouvé." });
+      return res
+        .status(404)
+        .json({ error: "NotFound", details: "Utilisateur non trouvé." });
     }
     res.status(200).json({ message: "Utilisateur supprimé avec succès." });
   } catch (error) {
     console.error("Erreur Delete User: ", error);
-    res.status(500).json({ message: "Erreur Serveur." });
+    res
+      .status(500)
+      .json({ error: "InternalServerError", details: "Erreur Serveur." });
   }
 };
 
@@ -26,7 +31,9 @@ export const updateUser = async (req, res) => {
 
     const [users] = await pool.query("SELECT * FROM User WHERE id = ?", [id]);
     if (users.length === 0) {
-      return res.status(404).json({ message: "Utilisateur non trouvé." });
+      return res
+        .status(404)
+        .json({ error: "NotFound", details: "Utilisateur non trouvé." });
     }
 
     const fieldsToUpdate = [];
@@ -44,11 +51,13 @@ export const updateUser = async (req, res) => {
 
     if (mail) {
       const [existingMail] = await pool.query(
-        "SELECT * FROM User WHERE mail = ? AND id != ?"[(mail, id)],
+        "SELECT * FROM User WHERE mail = ? AND id != ?",
+        [mail, id],
       );
       if (existingMail.length > 0) {
         return res.status(409).json({
-          message: "Cet email est déjà utilisé par un autre utilisateur.",
+          error: "Conflict",
+          details: "Cet email est déjà utilisé par un autre utilisateur.",
         });
       }
       fieldsToUpdate.push("mail = ?");
@@ -63,7 +72,10 @@ export const updateUser = async (req, res) => {
     }
 
     if (fieldsToUpdate.length === 0) {
-      return res.status(400).json({ message: "Aucune donnée à modifier." });
+      return res.status(400).json({
+        error: "ValidationError",
+        details: "Aucune donnée à modifier.",
+      });
     }
 
     const sql = `UPDATE User SET ${fieldsToUpdate.join(", ")} WHERE id = ?`;
@@ -74,6 +86,8 @@ export const updateUser = async (req, res) => {
     res.status(200).json({ message: "Utilisateur mis à jour avec succès." });
   } catch (error) {
     console.error("Erreur Update User: ", error);
-    res.status(500).json({ message: "Erreur Serveur." });
+    res
+      .status(500)
+      .json({ error: "InternalServerError", details: "Erreur Serveur." });
   }
 };

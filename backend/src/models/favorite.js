@@ -1,9 +1,25 @@
-const mongoose = require("mongoose");
+import pool from "../config/db.js";
 
-const favoriteSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  item: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
-  createdAt: { type: Date, default: Date.now },
-});
+export const setUserFavorite = async (userId, favorite) => {
+  const [result] = await pool.query(
+    "UPDATE User SET favorite = ? WHERE id = ?",
+    [favorite, userId],
+  );
+  return result;
+};
 
-module.exports = mongoose.model("Favorite", favoriteSchema);
+export const clearUserFavorite = async (userId) => {
+  const [result] = await pool.query(
+    "UPDATE User SET favorite = NULL WHERE id = ?",
+    [userId],
+  );
+  return result;
+};
+
+export const getUserFavorite = async (userId) => {
+  const [rows] = await pool.query(
+    "SELECT id, favorite FROM User WHERE id = ?",
+    [userId],
+  );
+  return rows[0] || null;
+};
