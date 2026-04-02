@@ -2,18 +2,19 @@ import pool from "../config/db.js"; // Import de la connexion BDD
 import bcrypt from "bcrypt"; // Outil pour crypter les mots de passe
 
 export const register = async (req, res) => {
+   console.log("Body reçu :", req.body);  // ← ajoute cette ligne
   try {
-    const { username, mail, password } = req.body;
+    const { username, email, password } = req.body;
 
     // 1. Validation : On vérifie que tout est rempli
-    if (!username || !mail || !password) {
+    if (!username || !email || !password) {
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }
 
     // 2. Vérification : On regarde si l'email existe déjà en base
     const [existingUser] = await pool.query(
-      "SELECT * FROM User WHERE mail = ?",
-      [mail],
+      "SELECT * FROM User WHERE email = ?",
+      [email],
     );
 
     if (existingUser.length > 0) {
@@ -26,8 +27,8 @@ export const register = async (req, res) => {
 
     // 4. Insertion : On crée l'utilisateur dans la base de données
     const [result] = await pool.query(
-      "INSERT INTO User (username, mail, password) VALUES (?, ?, ?)",
-      [username, mail, hashedPassword],
+      "INSERT INTO User (username, email, password) VALUES (?, ?, ?)",
+      [username, email, hashedPassword],
     );
 
     // 5. Succès : On renvoie l'ID du nouvel utilisateur

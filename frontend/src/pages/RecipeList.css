@@ -1,0 +1,95 @@
+/* Container principal */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+/* Barre filtres */
+.filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Search */
+.search {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 25px;
+  background-color: #f5f5f5;
+}
+
+.search-input {
+  font-size: 16px;
+  margin-left: 10px;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+/* Checkbox */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Select */
+select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Auth buttons */
+.auth {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.auth a {
+  text-decoration: none;
+  color: #0077ff;
+  font-weight: bold;
+}
+
+/* Cards recettes */
+.recipe-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: 0.2s ease;
+  background: white;
+}
+
+.recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.recipe-card h2 {
+  margin-top: 0;
+}
+
+.recipe-card p {
+  margin-bottom: 0;
+}
