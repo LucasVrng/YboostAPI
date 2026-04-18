@@ -1,9 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import RecipeList from "./pages/RecipeList.jsx";
-import RecipePage from "./pages/RecipePage";
-import Account from "./pages/Account";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
+import RecipeList from "../pages/RecipeList.jsx";
+import RecipePage from "../pages/RecipePage";
+import RecipeCreation from "../pages/RecipeCreation";
+import Account from "../pages/Account";
+import Login from "../pages/Login.jsx";
+import Register from "../pages/Register.jsx";
+import "./App.css";
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
       <Route path="/recipes" element={<RecipeList />} />
       <Route path="/recipe/:id" element={<RecipePage />} />
       <Route path="/user/:id" element={<Account />} />
+      <Route path="/create" element={<RecipeCreation />} />
     </Routes>
   );
 }

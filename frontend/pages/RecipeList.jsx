@@ -52,7 +52,7 @@ function RecipeList() {
           <article className="auth">
             <Link to={`/user/${user.id}`}>Mon Profil</Link>
             <Logout />
-            <Link to={`/recipes/create`}>Créer une recette</Link>
+            <Link to={`/create`}>Créer une recette</Link>
           </article>
         ) : (
           <article className="auth">
