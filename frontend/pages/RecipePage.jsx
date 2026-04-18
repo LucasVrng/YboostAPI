@@ -22,9 +22,9 @@ export default function RecipePage() {
         ← Retour aux recettes
       </Link>
 
-      <article className="recipe-container">
+      <article className="recipe">
         
-        <div className="recipe-header">
+        <div className="recipe__header">
           <h1>{recipe.name}</h1>
 
           <span
@@ -36,14 +36,16 @@ export default function RecipePage() {
           </span>
         </div>
 
-        <div className="recipe-info">
+        <div className="recipe__info">
           <p>
             <strong>Pays :</strong> {recipe.country_name}
           </p>
         </div>
 
-        <div className="recipe-instructions">
-          <h3>Préparation</h3>
+        <img src={recipe.image_url} className="recipe__image"></img>
+
+        <div className="recipe__instructions">
+          <h3>Instructions</h3>
           <p>{recipe.instructions}</p>
         </div>
 
