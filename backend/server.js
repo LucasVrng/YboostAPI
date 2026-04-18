@@ -1,36 +1,32 @@
-import express from "express";
+import express, { json } from "express";
 import cors from "cors";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import authRoutes from "./src/routes/authRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import recipesRoutes from "./src/routes/recipesRoutes.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import pool from "./src/config/db.js"
 
 const app = express();
+
+// --- Middlewares ---
+// Autorise les requêtes depuis l'extérieur et permet de lire le JSON entrant
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
-const recipesPath = path.join(__dirname, "data", "recipes.json");
+// --- ROUTES AUTHENTIFICATION ---
+// Redirige tout ce qui commence par "/api/auth" (Login, Register) vers authRoutes
+app.use("/api/auth", authRoutes);
 
-const getRecipes = () =>
-  JSON.parse(fs.readFileSync(recipesPath, "utf-8"));
+// --- ROUTES GESTION UTILISATEURS ---
+// Redirige tout ce qui commence par "/api/users" (Suppression, etc.) vers userRoutes
+app.use("/api/users", userRoutes);
 
-app.get("/api/recipes", (req, res) => {
-  res.json(getRecipes());
-});
+// --- ROUTES RECETTES ---
+// Redirige tout ce qui commence par "/api/recipes" (Suppression, etc.) vers recipesRoutes
+app.use("/api/recipes", recipesRoutes);
 
-app.get("/api/recipes/:id", (req, res) => {
-  const recipes = getRecipes();
-  const recipe = recipes.find(r => r.id === Number(req.params.id));
-
-  if (!recipe) {
-    return res.status(404).json({ error: "Recette introuvable" });
-  }
-
-  res.json(recipe);
-});
-
-app.listen(5000, () =>
-  console.log("✅ API en ligne sur http://localhost:5000")
+// Lancement du serveur
+const PORT = 5000;
+app.listen(PORT, () =>
+  console.log(`API en ligne sur http://localhost:${PORT}`),
 );

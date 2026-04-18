@@ -1,0 +1,59 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Bouton retour */
+.back {
+  text-decoration: none;
+  color: #0077ff;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Carte principale */
+.recipe-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Header recette */
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-header h1 {
+  margin: 0;
+}
+
+/* Favorite */
+.favorite {
+  font-size: 28px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.favorite:hover {
+  transform: scale(1.1);
+}
+
+/* Infos */
+.recipe-info {
+  margin-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Instructions */
+.recipe-instructions {
+  margin-top: 20px;
+  line-height: 1.6;
+}
