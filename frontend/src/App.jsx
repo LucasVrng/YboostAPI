@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import RecipeList from "./pages/RecipeList.js";
+import RecipeList from "./pages/RecipeList.jsx";
 import RecipePage from "./pages/RecipePage.jsx";
-import RecipeCreation from "./pages/RecipeCreation.js";
-import Account from "./pages/Account.js";
-import Login from "./pages/Login.js";
+import RecipeCreation from "./pages/RecipeCreation.jsx";
+import Account from "./pages/Account.jsx";
+import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import "./App.css";
 
