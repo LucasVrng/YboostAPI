@@ -33,7 +33,7 @@ function Login () {
 
     return (
         <div className="container-auth">
-            <div className="auth-card">
+            <article className="auth-card">
                 <h2>Connexion</h2>
 
                 {error && <p className="error">{error}</p>}
@@ -69,7 +69,7 @@ function Login () {
                 <p className="auth-link">
                     Pas de compte ? <Link to="/auth/register">S'inscrire</Link>
                 </p>
-            </div>
+            </article>
         </div>
     );
 }

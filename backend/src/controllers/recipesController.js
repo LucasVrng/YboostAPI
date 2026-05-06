@@ -40,7 +40,15 @@ export const getRecipes = async (req, res) => {
 export const getRecipeById = async (req, res) => {
     try {
         const { id } = req.params;
-        const [rows] = await pool.query('SELECT * FROM recipes WHERE id = ?', [id]);
+        
+        const query = `
+            SELECT recipes.*, country.name AS country_name 
+            FROM recipes 
+            LEFT JOIN country ON recipes.country_id = country.id
+            WHERE recipes.id = ?
+        `;
+        
+        const [rows] = await pool.query(query, [id]);
         
         if (rows.length === 0) {
             return res.status(404).json({ error: 'Recipe not found' });

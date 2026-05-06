@@ -1,50 +1,83 @@
-import * as React from "react"
+import * as React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
 
-function Register () {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+function Register() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        setError(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
 
-    const res = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, email})
-    });
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, email }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-        setError(data.message || "Erreur de connexion");
+      if (!res.ok) {
+        setError(data.message || "Erreur lors de l'inscription");
         return;
+      }
+
+      // Stocke l'utilisateur en localStorage
+      localStorage.setItem("user", JSON.stringify({ id: data.userId, username, email }));
+      navigate("/recipes/");
+    } catch (err) {
+      setError("Erreur réseau. Réessayez plus tard.");
+      console.error(err);
     }
+  };
 
-    localStorage.setItem("user", JSON.stringify({ id: data.userId, username, email }));
-    navigate("/recipes/");
-}
+  return (
+    <div className="container-auth">
+      <article className="auth-card">
+        <h2>Inscription</h2>
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <h2>Inscription</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-                <label htmlFor="login">Identifiant</label>
-                <input type="text" placeholder="Mail" value={email} onChange={e => setEmail(e.target.value)}></input>
-                <label htmlFor="email">Email</label>
-                <input type="text" placeholder="Nom d'utilisateur" value={username} onChange={e => setUsername(e.target.value)}></input>
-                <label htmlFor="password">Mot de passe</label>
-                <input type="password" placeholder="Mot de passe" value={password} onChange={e => setPassword(e.target.value)}></input>
-                <button type="submit">Connexion</button>
-                <p>Déja un compte ? <a href="/login">Se connecter?</a></p>
+        {error && <p className="error">{error}</p>}
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <label>Identifiant</label>
+          <input
+            type="text"
+            placeholder="Nom d'utilisateur"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+
+          <label>Email</label>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <label>Mot de passe</label>
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button type="submit">S'inscrire</button>
         </form>
-    )
+
+        <p className="auth-link">
+          Déjà un compte ? <Link to="/auth/login">Se connecter</Link>
+        </p>
+      </article>
+    </div>
+  );
 }
 
 export default Register;

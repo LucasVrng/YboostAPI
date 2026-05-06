@@ -15,7 +15,7 @@
 }
 
 /* Carte principale */
-.recipe-container {
+.recipe {
   background: white;
   padding: 25px;
   border-radius: 12px;
@@ -24,13 +24,13 @@
 }
 
 /* Header recette */
-.recipe-header {
+.recipe__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.recipe-header h1 {
+.recipe__header h1 {
   margin: 0;
 }
 
@@ -46,14 +46,23 @@
 }
 
 /* Infos */
-.recipe-info {
+.recipe__info {
   margin-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #eee;
 }
 
 /* Instructions */
-.recipe-instructions {
+.recipe__instructions {
   margin-top: 20px;
   line-height: 1.6;
+  white-space: pre-line;
+}
+
+.recipe__image {
+  width: 80%;
+  display: block;
+  margin: auto;
+  border-radius: 20px;
+  border:  black 5px solid;
 }
