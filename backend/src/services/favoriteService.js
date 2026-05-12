@@ -6,9 +6,8 @@ import {
 
 /**
  * @file favoriteService.js
- * @description Service layer for favorites.
- * Normalizes inputs, applies business validation, and throws typed errors
- * that controllers map to HTTP responses.
+ * @description Couche service pour les favoris.
+ * Valide les entrées, applique la logique métier et lève des erreurs typées.
  */
 
 /**
@@ -35,8 +34,9 @@ const toPositiveInt = (value) => {
 };
 
 /**
- * @param {unknown} userIdValue
- * @param {unknown} favoriteValue
+ * Ajoute un favori pour un utilisateur en validant les données.
+ * @param {unknown} userIdValue - L'ID de l'utilisateur
+ * @param {unknown} favoriteValue - L'ID du favori (ex: recette)
  * @returns {Promise<{userId:number,favorite:number}>}
  */
 export const addFavoriteForUser = async (userIdValue, favoriteValue) => {
@@ -60,7 +60,8 @@ export const addFavoriteForUser = async (userIdValue, favoriteValue) => {
 };
 
 /**
- * @param {unknown} userIdValue
+ * Supprime le favori d'un utilisateur.
+ * @param {unknown} userIdValue - L'ID de l'utilisateur
  * @returns {Promise<{userId:number}>}
  */
 export const removeFavoriteForUser = async (userIdValue) => {
@@ -83,7 +84,8 @@ export const removeFavoriteForUser = async (userIdValue) => {
 };
 
 /**
- * @param {unknown} userIdValue
+ * Récupère le favori d'un utilisateur depuis la base de données.
+ * @param {unknown} userIdValue - L'ID de l'utilisateur
  * @returns {Promise<{userId:number,favorite:number|null}>}
  */
 export const fetchUserFavorite = async (userIdValue) => {

@@ -9,11 +9,16 @@ const router = express.Router();
 
 /**
  * @file favoriteRoutes.js
- * @description Favorite endpoints mapping to controller handlers.
+ * @description Définition des routes pour la gestion des favoris.
  */
 
+// Route pour ajouter un favori (attend { userId, favorite } dans le corps de la requête)
 router.post("/", addFavorite);
+
+// Route pour supprimer le favori d'un utilisateur (attend l'ID de l'utilisateur dans l'URL)
 router.delete("/:id", removeFavorite);
+
+// Route pour récupérer le favori d'un utilisateur donné
 router.get("/user/:userId", getUserFavorites);
 
 export default router;

@@ -6,7 +6,12 @@ import mysql from "mysql2/promise";
  */
 const pool = mysql.createPool({
   host: "localhost",
+<<<<<<< HEAD
   user: "dev",
+=======
+  port: 3306,
+  user: "dev", // L'utilisateur principal
+>>>>>>> 4176b88d224fdd15e28d01a74d797e5e27c27149
   password: "dev",
   database: "yboost_db",
   waitForConnections: true,
