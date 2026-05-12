@@ -18,7 +18,10 @@ function RecipePage() {
 
   return (
     <div style={{ padding: 20 }}>
-      <Link to="/">← Retour</Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Link to="/">← Retour</Link>
+        <Link to={`/recipe/edit/${id}`}>Modifier la recette</Link>
+      </div>
 
       <h1>{recipe.name}</h1>
       <p><strong>Pays :</strong> {recipe.country}</p>

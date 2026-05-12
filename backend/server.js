@@ -60,6 +60,20 @@ app.post("/api/recipes", (req, res) => {
   res.status(201).json(newRecipe);
 });
 
+/** Update a recipe in in-memory storage. */
+app.put("/api/recipes/:id", (req, res) => {
+  const index = recipes.findIndex((r) => r.id === parseInt(req.params.id));
+  if (index === -1) {
+    return res
+      .status(404)
+      .json({ error: "NotFound", details: "Recette non trouvée" });
+  }
+
+  const updatedRecipe = { ...recipes[index], ...req.body };
+  recipes[index] = updatedRecipe;
+  res.json(updatedRecipe);
+});
+
 /** Start the API server. */
 const PORT = 5000;
 app.listen(PORT, () =>

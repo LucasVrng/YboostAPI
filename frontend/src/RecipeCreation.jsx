@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CountryList from 'react-select-country-list';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function RecipeCreation() {
     const [formData, setFormData] = useState({
@@ -17,6 +17,34 @@ function RecipeCreation() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { id } = useParams();
+    const isEditMode = Boolean(id);
+
+    useEffect(() => {
+        if (isEditMode) {
+            setLoading(true);
+            fetch(`http://localhost:5000/api/recipes/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    // Pre-fill form with existing data, handling potential undefined values
+                    setFormData({
+                        name: data.name || '',
+                        time: data.time || '',
+                        instructions: data.instructions || '',
+                        country: data.country || '',
+                        image_url: data.image_url || '',
+                        how_many: data.how_many || '',
+                        ingredients: data.ingredients ? data.ingredients.map(i => i.name || i).join(', ') : '',
+                        is_vegan: data.is_vegan || ''
+                    });
+                    setLoading(false);
+                })
+                .catch(err => {
+                    setError('Erreur lors du chargement de la recette.');
+                    setLoading(false);
+                });
+        }
+    }, [id, isEditMode]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,8 +56,14 @@ function RecipeCreation() {
         setError('');
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/recipes', {
-                method: 'POST',
+            const url = isEditMode 
+                ? `http://localhost:5000/api/recipes/${id}` 
+                : 'http://localhost:5000/api/recipes';
+                
+            const method = isEditMode ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -38,10 +72,10 @@ function RecipeCreation() {
 
             if (response.ok) {
                 setLoading(false);
-                navigate('/recipes');
+                navigate('/');
             } else {
                 const errorData = await response.json();
-                setError(errorData.message || 'Erreur lors de la création');
+                setError(errorData.message || (isEditMode ? 'Erreur lors de la modification' : 'Erreur lors de la création'));
                 setLoading(false);
             }
         } catch (error) {
@@ -52,7 +86,7 @@ function RecipeCreation() {
 
     return (
         <main className='RecipeCreate'>
-            <h1>Créez votre recette</h1>
+            <h1>{isEditMode ? 'Modifiez votre recette' : 'Créez votre recette'}</h1>
             {error && (
                 <p className='RecipeCreate__Error'>
                     {error}
@@ -141,7 +175,7 @@ function RecipeCreation() {
                     disabled={loading}
                 />
                 <button type='submit' disabled={loading}>
-                    {loading ? 'En cours...' : 'Créer'}
+                    {loading ? 'En cours...' : (isEditMode ? 'Modifier' : 'Créer')}
                 </button>
             </form>
         </main>

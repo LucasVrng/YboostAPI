@@ -8,6 +8,7 @@ function App() {
     <Routes>
       <Route path="/" element={<RecipeList />} />
       <Route path="/recipe" element={<RecipeCreation />} />
+      <Route path="/recipe/edit/:id" element={<RecipeCreation />} />
       <Route path="/recipe/:id" element={<RecipePage />} />
     </Routes>
   );
