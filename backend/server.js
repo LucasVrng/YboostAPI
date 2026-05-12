@@ -54,9 +54,22 @@ app.get("/api/recipes/:id", (req, res) => {
 
 /** Add a recipe to in-memory storage (non-persistent). */
 app.post("/api/recipes", (req, res) => {
-  const newRecipe = { id: Date.now(), ...req.body };
+  const { ingredients, ...recipeData } = req.body;
+  const newRecipe = { id: Date.now(), ...recipeData };
 
   recipes.push(newRecipe);
+
+  // Handle ingredients
+  if (ingredients) {
+    const ingredientNames = ingredients.split(',').map(name => name.trim());
+    ingredientNames.forEach(name => {
+      const ingredient = ingredients.find(ing => ing.name === name);
+      if (ingredient) {
+        recipeIngredients.push({ recipe_id: newRecipe.id, ingredients_id: ingredient.id });
+      }
+    });
+  }
+
   res.status(201).json(newRecipe);
 });
 

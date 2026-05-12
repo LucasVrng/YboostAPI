@@ -6,7 +6,7 @@ function RecipeList() {
   const [search, setSearch] = useState(``);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/recipes")
+    fetch("http://127.0.0.1:5000/api/recipes")
       .then(res => res.json())
       .then(data => setRecipes(data))
       .catch(error => {

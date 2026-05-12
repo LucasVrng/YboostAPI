@@ -6,7 +6,7 @@ function RecipePage() {
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/recipes/${id}`)
+    fetch(`http://127.0.0.1:5000/api/recipes/${id}`)
       .then(res => res.json())
       .then(data => setRecipe(data))
       .catch(error => {

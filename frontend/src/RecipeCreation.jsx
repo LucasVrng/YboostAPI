@@ -23,7 +23,7 @@ function RecipeCreation() {
     useEffect(() => {
         if (isEditMode) {
             setLoading(true);
-            fetch(`http://localhost:5000/api/recipes/${id}`)
+            fetch(`http://127.0.0.1:5000/api/recipes/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     // Pre-fill form with existing data, handling potential undefined values
@@ -57,8 +57,8 @@ function RecipeCreation() {
         setLoading(true);
         try {
             const url = isEditMode 
-                ? `http://localhost:5000/api/recipes/${id}` 
-                : 'http://localhost:5000/api/recipes';
+                ? `http://127.0.0.1:5000/api/recipes/${id}` 
+                : 'http://127.0.0.1:5000/api/recipes';
                 
             const method = isEditMode ? 'PUT' : 'POST';
 
@@ -79,6 +79,7 @@ function RecipeCreation() {
                 setLoading(false);
             }
         } catch (error) {
+            console.error("Fetch error:", error);
             setError('Erreur de connexion au serveur.');
             setLoading(false);
         }
