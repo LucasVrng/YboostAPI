@@ -5,13 +5,15 @@ import "./RecipePage.css";
 export default function RecipePage() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
-  const [ingredients, setIngredients] = useState(null);
+  const [ingredients, setIngredients] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/recipes/${id}`)
-      .then(res => res.json())
-      .then(data => setRecipe(data));
+  fetch(`http://localhost:5000/api/recipes/${id}`)
+    .then(res => res.json())
+    .then(data => { setRecipe(data); setLoading(false); })
+    .catch(() => setLoading(false));
   }, [id]);
 
   useEffect(() => {
@@ -20,6 +22,7 @@ export default function RecipePage() {
       .then(data => setIngredients(data));
   }, [id]);
 
+  if (loading) return <p>Chargement...</p>;
   if (!recipe) return <p>Erreur lors du fetch de la recette</p>;
 
   return (
@@ -52,18 +55,18 @@ export default function RecipePage() {
         <img src={recipe.image_url} className="recipe__image"></img>
 
         <section className="recipe__ingredients">
-          <h3>Ingrédients</h3>
+          <h3>Ingrédients : </h3>
           <ul>
             {ingredients.map(ingredient => (
               <li key={ingredient.id}>
-                {ingredient.name} — {ingredient.quantity} {ingredient.unit}
+                {ingredient.name}
               </li>
             ))}
           </ul>
         </section>
 
         <section className="recipe__instructions">
-          <h3>Instructions</h3>
+          <h3>Instructions :</h3>
           <p>{recipe.instructions}</p>
         </section>
 

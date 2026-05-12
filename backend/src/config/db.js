@@ -1,14 +1,16 @@
 import mysql from "mysql2/promise";
 
-// Configuration de la connexion à la base de données
+/**
+ * @file db.js
+ * @description Shared MySQL pool configuration used by backend layers.
+ */
 const pool = mysql.createPool({
   host: "localhost",
-  port: 3306,
-  user: "dev", // L'utilisateur principal
+  user: "dev",
   password: "dev",
   database: "yboost_db",
   waitForConnections: true,
-  connectionLimit: 10, // Nombre max de connexions simultanées
+  connectionLimit: 10,
   queueLimit: 0,
   charset: "utf8mb4",
 });

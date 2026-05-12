@@ -1,44 +1,62 @@
-import pool from "../config/db.js"; // Import de la connexion BDD
-import bcrypt from "bcrypt"; // Outil pour crypter les mots de passe
+import pool from "../config/db.js";
+import bcrypt from "bcrypt";
 
+/**
+ * @file authController.js
+ * @description Registration controller backed by MySQL.
+ */
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
 export const register = async (req, res) => {
    console.log("Body reçu :", req.body);  // ← ajoute cette ligne
   try {
     const { username, email, password } = req.body;
 
-    // 1. Validation : On vérifie que tout est rempli
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "Tous les champs sont requis." });
+    /** Validate required fields before querying the database. */
+    if (!username || !mail || !password) {
+      return res.status(400).json({
+        error: "ValidationError",
+        details: "Tous les champs sont requis.",
+      });
     }
 
-    // 2. Vérification : On regarde si l'email existe déjà en base
+    /** Enforce email uniqueness before insert. */
     const [existingUser] = await pool.query(
       "SELECT * FROM User WHERE email = ?",
       [email],
     );
 
     if (existingUser.length > 0) {
-      return res.status(409).json({ message: "Cet email est déjà utilisé." });
+      return res.status(409).json({
+        error: "Conflict",
+        details: "Cet email est déjà utilisé.",
+      });
     }
 
-    // 3. Sécurité : On hache le mot de passe (ne jamais stocker en clair !)
+    /** Hash the password to avoid storing plain-text credentials. */
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 4. Insertion : On crée l'utilisateur dans la base de données
+    /** Insert the user only after validation and hashing complete. */
     const [result] = await pool.query(
       "INSERT INTO User (username, email, password) VALUES (?, ?, ?)",
       [username, email, hashedPassword],
     );
 
-    // 5. Succès : On renvoie l'ID du nouvel utilisateur
+    /** Return the inserted user identifier. */
     res.status(201).json({
       message: "Utilisateur inscrit avec succès",
       userId: result.insertId,
     });
   } catch (error) {
-    // Gestion des erreurs imprévues (ex: BDD éteinte)
+    /** Keep internal details in logs and expose a safe API error payload. */
     console.error("Erreur Register:", error);
-    res.status(500).json({ message: "Erreur Serveur." });
+    res.status(500).json({
+      error: "InternalServerError",
+      details: "Erreur Serveur.",
+    });
   }
 };

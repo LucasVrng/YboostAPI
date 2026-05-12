@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "keywords": [],
   "author": "",
@@ -19,12 +19,12 @@
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.3.1",
     "helmet": "^8.1.0",
+    "mongoose": "^9.3.0",
     "morgan": "^1.10.1",
-    "mysql": "^2.18.1",
-    "mysql2": "^3.16.2",
-    "sql": "^0.78.0"
+    "mysql2": "^3.16.2"
   },
   "devDependencies": {
+    "jest": "^30.3.0",
     "nodemon": "^3.1.11"
   },
   "type": "module"
