@@ -12,16 +12,11 @@
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-<<<<<<< HEAD
     "react-router-dom": "^7.11.0",
     "react-scripts": "5.0.1",
     "react-select-country-list": "^2.2.3",
     "uuid": "^13.0.0",
     "web-vitals": "^2.1.4"
-=======
-    "react-router-dom": "^7.13.2",
-    "react-select-country-list": "^2.2.3"
->>>>>>> 4176b88d224fdd15e28d01a74d797e5e27c27149
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

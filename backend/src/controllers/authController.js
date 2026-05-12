@@ -15,18 +15,12 @@ export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-<<<<<<< HEAD
     /** Validate required fields before querying the database. */
     if (!username || !mail || !password) {
       return res.status(400).json({
         error: "ValidationError",
         details: "Tous les champs sont requis.",
       });
-=======
-    // 1. Validation : On vérifie que tout est rempli
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "Tous les champs sont requis." });
->>>>>>> 4176b88d224fdd15e28d01a74d797e5e27c27149
     }
 
     /** Enforce email uniqueness before insert. */

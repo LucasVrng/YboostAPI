@@ -16,7 +16,7 @@ const router = express.Router();
 router.post("/", addFavorite);
 
 // Route pour supprimer le favori d'un utilisateur (attend l'ID de l'utilisateur dans l'URL)
-router.delete("/:id", removeFavorite);
+router.delete("/:userId/:recipeId", removeFavorite);
 
 // Route pour récupérer le favori d'un utilisateur donné
 router.get("/user/:userId", getUserFavorites);

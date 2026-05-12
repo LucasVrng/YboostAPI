@@ -42,7 +42,8 @@ export const addFavorite = async (req, res) => {
  */
 export const removeFavorite = async (req, res) => {
   try {
-    const result = await removeFavoriteForUser(req.params.id);
+    const { userId, recipeId } = req.params;
+    const result = await removeFavoriteForUser(userId, recipeId);
     return res.status(200).json({
       ...result,
       details: "Favori supprime avec succes.",

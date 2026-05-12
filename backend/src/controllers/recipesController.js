@@ -18,7 +18,7 @@ export const getRecipes = async (req, res) => {
             values.push(id);
         }
         if (q) {
-            conditions.push('name LIKE ?');
+            conditions.push('recipes.name LIKE ?');
             values.push(`%${q}%`);
         }
         if (country) {

@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import CountryList from "react-select-country-list";
 import { useNavigate } from "react-router-dom";
 import countryList from "react-select-country-list";
+import "./RecipeCreation.css";
 
 function RecipeCreation() {
   const [formData, setFormData] = useState({

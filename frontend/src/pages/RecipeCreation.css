@@ -1,0 +1,79 @@
+/* Recipe Creation Form Styles */
+.RecipeCreate {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.RecipeCreate h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.RecipeCreate__Error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid #fecaca;
+}
+
+.RecipeCreate__Form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.RecipeCreate__Form input,
+.RecipeCreate__Form select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.RecipeCreate__Form input:focus,
+.RecipeCreate__Form select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.RecipeCreate__Form button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
+
+.RecipeCreate__Form button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.RecipeCreate__Form button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.RecipeCreate__Form button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
