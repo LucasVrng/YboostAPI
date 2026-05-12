@@ -65,10 +65,22 @@ select {
   margin-bottom: 20px;
 }
 
-.auth a {
+.auth a, .auth button {
   text-decoration: none;
   color: #0077ff;
   font-weight: bold;
+  background: none;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  font: inherit;
+  cursor: pointer;
+  padding: 5px;
+  transition: all 0.2s;
+}
+
+.auth a:hover, .auth button:hover {
+  transform: scale(1.1);
 }
 
 /* Cards recettes */
@@ -92,4 +104,11 @@ select {
 
 .recipe-card p {
   margin-bottom: 0;
+}
+
+@media (max-width: 728px){
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
