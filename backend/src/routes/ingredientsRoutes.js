@@ -3,14 +3,16 @@ import { getIngredients, postIngredients, putIngredients, deleteIngredients } fr
 
 const router = express.Router();
 
+// Routes de lecture
+
 router.get('/ingredients', getIngredients);
+
 router.get('/ingredients/:id', getIngredients);
-router.get('/ingredients?q={name}', getIngredients);
-router.get('/ingredients?country={choice}', getIngredients);
-router.get('/ingredients?is_vegan=true', getIngredients);
+
+// Routes de modification
 
 router.post('/ingredients', postIngredients);
-router.put('/ingredients', putIngredients);
-router.delete('/ingredients', deleteIngredients);
+router.put('/ingredients/:id', putIngredients);
+router.delete('/ingredients/:id', deleteIngredients);
 
 export default router;

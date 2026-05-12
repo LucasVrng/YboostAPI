@@ -3,12 +3,13 @@ import pool from "../config/db.js";
 export const getIngredients = async (req, res) => {
     try {
         const { id } = req.params;
-        const { q } = req.query;
+        const { q, country, is_vegan } = req.query;
 
         let query = 'SELECT * FROM ingredients';
         let conditions = [];
         let values = [];
 
+        // Récupérer un ingrédient spécifique si ID est fourni, sinon appliquer les filtres de recherche
         if (id) {
             conditions.push('id = ?');
             values.push(id);
@@ -17,6 +18,14 @@ export const getIngredients = async (req, res) => {
             conditions.push('name LIKE ?');
             values.push(`%${q}%`);
         }
+        if (country) {
+            conditions.push('country = ?');
+            values.push(country);
+        }
+        if (is_vegan) {
+            conditions.push('is_vegan = ?');
+            values.push(is_vegan === 'true' ? 1 : 0);
+        }
 
         if (conditions.length > 0) {
             query += ' WHERE ' + conditions.join(' AND ');
@@ -24,40 +33,6 @@ export const getIngredients = async (req, res) => {
 
         const [rows] = await pool.query(query, values);
         res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
-
-export const postIngredients = async (req, res) => {
-    try {
-        const { name } = req.body;
-        const [result] = await pool.query('INSERT INTO ingredients (name) VALUES (?)', [name]);
-        res.status(201).json({ id: result.insertId, name });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
-
-export const putIngredients = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { name } = req.body;
-        await pool.query('UPDATE ingredients SET name = ? WHERE id = ?', [name, id]);
-        res.json({ id, name });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};  
-
-export const deleteIngredients = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await pool.query('DELETE FROM ingredients WHERE id = ?', [id]);
-        res.json({ message: 'Ingredient deleted successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
