@@ -1,9 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import CountryList from 'react-select-country-list';
 import { useNavigate } from 'react-router-dom';
 
 function RecipeCreation() {
-    const { formData, setFormData } = useState({
+    const [formData, setFormData] = useState({
         name: '',
         time: '',
         instructions: '',
@@ -14,8 +14,8 @@ function RecipeCreation() {
         is_vegan: ''
     });
 
-    const { error, setError } = useState('');
-    const { loading, setLoading } = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -27,20 +27,25 @@ function RecipeCreation() {
         e.preventDefault();
         setError('');
         setLoading(true);
-        const response = await fetch('http://localhost:3000/recipe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
+        try {
+            const response = await fetch('http://localhost:5000/api/recipes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        if (response.ok) {
-            setLoading(false);
-            navigate('/recipes');
-        } else {
-            const error = await response.json();
-            setError(error.message);
+            if (response.ok) {
+                setLoading(false);
+                navigate('/recipes');
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message || 'Erreur lors de la création');
+                setLoading(false);
+            }
+        } catch (error) {
+            setError('Erreur de connexion au serveur.');
             setLoading(false);
         }
     };
@@ -65,7 +70,7 @@ function RecipeCreation() {
                     required
                 />
                 <input
-                    type='nbr'
+                    type='number'
                     id='time'
                     name='time'
                     placeholder='Temps de cuisson'
@@ -84,15 +89,21 @@ function RecipeCreation() {
                     disabled={loading}
                     required
                 />
-                <CountryList
+                <select
                     id='country'
                     name='country'
-                    placeholder="Pays d'origine"
                     value={formData.country}
                     onChange={handleChange}
                     disabled={loading}
                     required
-                />
+                >
+                    <option value="" disabled>Pays d'origine</option>
+                    {CountryList().getData().map((country) => (
+                        <option key={country.value} value={country.label}>
+                            {country.label}
+                        </option>
+                    ))}
+                </select>
                 <input
                     type='text'
                     id='image_url'

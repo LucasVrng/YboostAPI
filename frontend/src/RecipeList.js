@@ -8,7 +8,10 @@ function RecipeList() {
   useEffect(() => {
     fetch("http://localhost:5000/api/recipes")
       .then(res => res.json())
-      .then(data => setRecipes(data));
+      .then(data => setRecipes(data))
+      .catch(error => {
+        console.error("Erreur de connexion avec l'API backend :", error);
+      });
   }, []);
 
   return (
