@@ -2,18 +2,23 @@ import pool from "../config/db.js";
 
 export const getRecipes = async (req, res) => {
     try {
+        const { id } = req.params;
         const { q, country, is_vegan } = req.query;
 
         let query = `
-            SELECT recipes.*, country.name AS country_name 
-            FROM recipes 
+            SELECT recipes.*, country.name AS country_name
+            FROM recipes
             LEFT JOIN country ON recipes.country_id = country.id
         `;
         let conditions = [];
         let values = [];
 
+        if (id) {
+            conditions.push('recipes.id = ?');
+            values.push(id);
+        }
         if (q) {
-            conditions.push('recipes.name LIKE ?');
+            conditions.push('name LIKE ?');
             values.push(`%${q}%`);
         }
         if (country) {
@@ -30,31 +35,12 @@ export const getRecipes = async (req, res) => {
         }
 
         const [rows] = await pool.query(query, values);
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
 
-export const getRecipeById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        
-        const query = `
-            SELECT recipes.*, country.name AS country_name 
-            FROM recipes 
-            LEFT JOIN country ON recipes.country_id = country.id
-            WHERE recipes.id = ?
-        `;
-        
-        const [rows] = await pool.query(query, [id]);
-        
-        if (rows.length === 0) {
-            return res.status(404).json({ error: 'Recipe not found' });
+        if (id) {
+            if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
+            return res.json(rows[0]);
         }
-        
-        res.json(rows[0]);
+        return res.json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -97,7 +83,7 @@ export const deleteRecipes = async (req, res) => {
 
 export const getCountry = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM country');
+        const [rows] = await pool.query('SELECT name FROM country');
         res.json(rows.map(row => row.name));
     } catch (error) {
         console.error(error);

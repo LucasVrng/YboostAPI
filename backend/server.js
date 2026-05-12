@@ -11,12 +11,6 @@ import recipeIngredients from "../data/recipeIngredients.js";
 
 const app = express();
 
-/**
- * @file server.js
- * @description Backend API entrypoint and route mounting.
- */
-
-/** Configure global middlewares. */
 app.use(cors());
 app.use(json());
 app.use((req, res, next) => {
@@ -30,8 +24,6 @@ app.use((req, res, next) => {
 /** Mount authentication routes under /api/auth. */
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", loginRoutes);
-
-/** Mount user and favorite routes. */
 app.use("/api/users", userRoutes);
 app.use("/api/favorites", favoriteRoutes);
 
