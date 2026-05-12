@@ -19,6 +19,13 @@ const app = express();
 /** Configure global middlewares. */
 app.use(cors());
 app.use(json());
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api/recipes")) {
+    console.log(`[DEBUG] ${req.method} ${req.path}`);
+    console.log("[DEBUG] Request body:", req.body);
+  }
+  next();
+});
 
 /** Mount authentication routes under /api/auth. */
 app.use("/api/auth", authRoutes);
@@ -54,27 +61,33 @@ app.get("/api/recipes/:id", (req, res) => {
 
 /** Add a recipe to in-memory storage (non-persistent). */
 app.post("/api/recipes", (req, res) => {
-  const { ingredients, ...recipeData } = req.body;
+  console.log("[DEBUG] POST /api/recipes body:", req.body);
+  const { ingredients: ingredientsString, ...recipeData } = req.body;
   const newRecipe = { id: Date.now(), ...recipeData };
 
   recipes.push(newRecipe);
 
   // Handle ingredients
-  if (ingredients) {
-    const ingredientNames = ingredients.split(',').map(name => name.trim());
+  if (ingredientsString) {
+    const ingredientNames = ingredientsString.split(',').map(name => name.trim());
+    console.log("[DEBUG] Parsed ingredient names:", ingredientNames);
     ingredientNames.forEach(name => {
       const ingredient = ingredients.find(ing => ing.name === name);
       if (ingredient) {
         recipeIngredients.push({ recipe_id: newRecipe.id, ingredients_id: ingredient.id });
+      } else {
+        console.log("[DEBUG] Ingredient not found in dataset:", name);
       }
     });
   }
 
+  console.log("[DEBUG] Created recipe:", newRecipe);
   res.status(201).json(newRecipe);
 });
 
 /** Update a recipe in in-memory storage. */
 app.put("/api/recipes/:id", (req, res) => {
+  console.log("[DEBUG] PUT /api/recipes/:id body:", req.body);
   const index = recipes.findIndex((r) => r.id === parseInt(req.params.id));
   if (index === -1) {
     return res
@@ -84,6 +97,7 @@ app.put("/api/recipes/:id", (req, res) => {
 
   const updatedRecipe = { ...recipes[index], ...req.body };
   recipes[index] = updatedRecipe;
+  console.log("[DEBUG] Updated recipe:", updatedRecipe);
   res.json(updatedRecipe);
 });
 

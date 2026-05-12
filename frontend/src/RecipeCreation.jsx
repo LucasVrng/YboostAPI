@@ -62,6 +62,7 @@ function RecipeCreation() {
                 
             const method = isEditMode ? 'PUT' : 'POST';
 
+            console.log("[DEBUG] Submit recipe", { url, method, formData });
             const response = await fetch(url, {
                 method: method,
                 headers: {
@@ -74,8 +75,15 @@ function RecipeCreation() {
                 setLoading(false);
                 navigate('/');
             } else {
-                const errorData = await response.json();
-                setError(errorData.message || (isEditMode ? 'Erreur lors de la modification' : 'Erreur lors de la création'));
+                const errorText = await response.text();
+                console.error("[DEBUG] Recipe submit failed", response.status, response.statusText, errorText);
+                let errorData;
+                try {
+                    errorData = JSON.parse(errorText);
+                } catch {
+                    errorData = null;
+                }
+                setError(errorData?.message || errorData?.details || (isEditMode ? 'Erreur lors de la modification' : 'Erreur lors de la création'));
                 setLoading(false);
             }
         } catch (error) {
