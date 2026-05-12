@@ -9,7 +9,7 @@ Application web fullstack composée d'un backend Node.js/Express et d'un fronten
 /frontend     # interface React
 /data         # données en mémoire pour les recettes et ingrédients
 /docs         # documentation technique
-\`\`\`
+\`\`\`![alt text](image.png)
 
 ## Backend
 

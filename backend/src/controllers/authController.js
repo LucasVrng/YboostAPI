@@ -11,21 +11,28 @@ import bcrypt from "bcrypt";
  * @param {import("express").Response} res
  */
 export const register = async (req, res) => {
+   console.log("Body reçu :", req.body);  // ← ajoute cette ligne
   try {
-    const { username, mail, password } = req.body;
+    const { username, email, password } = req.body;
 
+<<<<<<< HEAD
     /** Validate required fields before querying the database. */
     if (!username || !mail || !password) {
       return res.status(400).json({
         error: "ValidationError",
         details: "Tous les champs sont requis.",
       });
+=======
+    // 1. Validation : On vérifie que tout est rempli
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "Tous les champs sont requis." });
+>>>>>>> 4176b88d224fdd15e28d01a74d797e5e27c27149
     }
 
     /** Enforce email uniqueness before insert. */
     const [existingUser] = await pool.query(
-      "SELECT * FROM User WHERE mail = ?",
-      [mail],
+      "SELECT * FROM User WHERE email = ?",
+      [email],
     );
 
     if (existingUser.length > 0) {
@@ -41,8 +48,8 @@ export const register = async (req, res) => {
 
     /** Insert the user only after validation and hashing complete. */
     const [result] = await pool.query(
-      "INSERT INTO User (username, mail, password) VALUES (?, ?, ?)",
-      [username, mail, hashedPassword],
+      "INSERT INTO User (username, email, password) VALUES (?, ?, ?)",
+      [username, email, hashedPassword],
     );
 
     /** Return the inserted user identifier. */
