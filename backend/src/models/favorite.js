@@ -2,13 +2,14 @@ import pool from "../config/db.js";
 
 /**
  * @file favorite.js
- * @description Data access for the `User.favorite` column.
+ * @description Modèle de données pour les favoris. Gère les requêtes à la base de données.
  */
 
 /**
- * @param {number} userId
- * @param {number} favorite
- * @returns {Promise<import("mysql2").ResultSetHeader>}
+ * Met à jour le favori d'un utilisateur.
+ * @param {number} userId - L'ID de l'utilisateur
+ * @param {number} favorite - L'ID du favori
+ * @returns {Promise<import("mysql2").ResultSetHeader>} Le résultat de la requête
  */
 export const setUserFavorite = async (userId, favorite) => {
   const [result] = await pool.query(
@@ -19,8 +20,9 @@ export const setUserFavorite = async (userId, favorite) => {
 };
 
 /**
- * @param {number} userId
- * @returns {Promise<import("mysql2").ResultSetHeader>}
+ * Efface (met à NULL) le favori d'un utilisateur.
+ * @param {number} userId - L'ID de l'utilisateur
+ * @returns {Promise<import("mysql2").ResultSetHeader>} Le résultat de la requête
  */
 export const clearUserFavorite = async (userId) => {
   const [result] = await pool.query(
@@ -31,8 +33,9 @@ export const clearUserFavorite = async (userId) => {
 };
 
 /**
- * @param {number} userId
- * @returns {Promise<{id:number,favorite:number|null}|null>}
+ * Récupère le favori actuel de l'utilisateur.
+ * @param {number} userId - L'ID de l'utilisateur
+ * @returns {Promise<{id:number,favorite:number|null}|null>} Les données utilisateur ou null si non trouvé
  */
 export const getUserFavorite = async (userId) => {
   const [rows] = await pool.query(
