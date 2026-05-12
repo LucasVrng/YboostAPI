@@ -22,7 +22,7 @@ export const login = async (req, res) => {
     }
 
     const [users] = await pool.query(
-      "SELECT * FROM User WHERE mail = ? OR username = ?",
+      "SELECT * FROM User WHERE email = ? OR username = ?",
       [mail || "", username || ""],
     );
 
@@ -44,7 +44,10 @@ export const login = async (req, res) => {
       });
     }
 
-    res.status(200).json({ message: "Connexion réussie.", userId: user.id });
+    res.status(200).json({ 
+      message: "Connexion réussie.", 
+      user: { id: user.id, username: user.username, email: user.email }
+    });
   } catch (error) {
     console.error("Erreur lors de la connexion :", error);
     res.status(500).json({
