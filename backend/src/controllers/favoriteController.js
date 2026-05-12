@@ -6,14 +6,14 @@ import {
 
 /**
  * @file favoriteController.js
- * @description HTTP controller for favorites.
- * Controllers translate request data to service calls and convert typed
- * service errors into consistent `{ error, details }` API responses.
+ * @description Contrôleur HTTP pour la gestion des favoris.
+ * Les contrôleurs font le lien entre la requête HTTP (req, res) et la logique métier (services).
  */
 
 /**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
+ * Ajoute un favori pour un utilisateur.
+ * @param {import("express").Request} req - La requête (attend userId et favorite dans le body)
+ * @param {import("express").Response} res - La réponse
  */
 export const addFavorite = async (req, res) => {
   try {
@@ -36,8 +36,9 @@ export const addFavorite = async (req, res) => {
 };
 
 /**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
+ * Supprime le favori d'un utilisateur.
+ * @param {import("express").Request} req - La requête (attend l'ID utilisateur dans les paramètres de l'URL)
+ * @param {import("express").Response} res - La réponse
  */
 export const removeFavorite = async (req, res) => {
   try {
@@ -62,8 +63,9 @@ export const removeFavorite = async (req, res) => {
 };
 
 /**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
+ * Récupère le favori d'un utilisateur spécifique.
+ * @param {import("express").Request} req - La requête (attend l'ID utilisateur dans les paramètres de l'URL)
+ * @param {import("express").Response} res - La réponse
  */
 export const getUserFavorites = async (req, res) => {
   try {
