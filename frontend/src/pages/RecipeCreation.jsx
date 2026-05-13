@@ -16,8 +16,8 @@ function RecipeCreation() {
     is_vegan: "",
   });
 
-  const { error, setError } = useState("");
-  const { loading, setLoading } = useState(false);
+  const [ error, setError ] = useState("");
+  const [ loading, setLoading ] = useState(false);
   const countries = useMemo(() => countryList().getData(), []);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ function RecipeCreation() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const response = await fetch("http://localhost:3000/recipe", {
+    const response = await fetch("http://localhost:5000/api/recipes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +93,7 @@ function RecipeCreation() {
         >
           <option value="">Pays d'origine</option>
           {countries.map((c) => (
-            <option key={c.value} value={c.value}>
+            <option key={c.value} value={c.label}>
               {c.label}
             </option>
           ))}
@@ -125,15 +125,21 @@ function RecipeCreation() {
           onChange={handleChange}
           disabled={loading}
         />
-        <input
-          type="text"
-          id="is_vegan"
-          name="is_vegan"
-          placeholder="Is vegan"
-          value={formData.is_vegan}
-          onChange={handleChange}
-          disabled={loading}
-        />
+        <article className="checkbox">
+          <input
+            type="checkbox"
+            id="is_vegan"
+            name="is_vegan"
+            checked={formData.is_vegan}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                is_vegan: e.target.checked,
+              })
+            }
+          />
+          <label htmlFor="is_vegan">Plat Végan?</label>
+        </article>
         <button type="submit" disabled={loading}>
           {loading ? "En cours..." : "Créer"}
         </button>
