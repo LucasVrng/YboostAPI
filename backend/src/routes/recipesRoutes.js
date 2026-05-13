@@ -14,9 +14,9 @@ router.get('/', getRecipes);
 router.get('/countries', getCountry);
 router.get('/:id', getRecipes);
 
-// // Routes de modification
-// router.post('/recipes', postRecipes);
-// router.put('/recipes/:id', putRecipes);
-// router.delete('/recipes/:id', deleteRecipes);
+// Routes de modification
+router.post('/', postRecipes);
+router.put('/:id', putRecipes);
+router.delete('/:id', deleteRecipes);
 
 export default router;

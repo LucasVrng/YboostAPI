@@ -16,7 +16,7 @@ export const register = async (req, res) => {
     const { username, email, password } = req.body;
 
     /** Validate required fields before querying the database. */
-    if (!username || !mail || !password) {
+    if (!username || !email || !password) {
       return res.status(400).json({
         error: "ValidationError",
         details: "Tous les champs sont requis.",

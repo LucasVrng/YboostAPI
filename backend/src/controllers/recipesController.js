@@ -48,14 +48,58 @@ export const getRecipes = async (req, res) => {
 };
 
 export const postRecipes = async (req, res) => {
-    try {
-        const { name, country, is_vegan } = req.body;
-        const [result] = await pool.query('INSERT INTO recipes (name, country, is_vegan) VALUES (?, ?, ?)', [name, country, is_vegan]);
-        res.status(201).json({ id: result.insertId, name, country, is_vegan });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+  try {
+    const {
+      name,
+      time,
+      instructions,
+      image_url,
+      how_many,
+      ingredients,
+      is_vegan,
+      country,
+    } = req.body;
+
+    // récupérer l'id du pays
+    const [countryRows] = await pool.query(
+      "SELECT id FROM country WHERE name = ?",
+      [country]
+    );
+
+    if (countryRows.length === 0) {
+      return res.status(400).json({
+        message: "Pays invalide",
+      });
     }
+
+    const country_id = countryRows[0].id;
+
+    const [result] = await pool.query(
+      `INSERT INTO recipes
+      (name, time, instructions, country_id, image_url, how_many, ingredients_summary, is_vegan)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        name,
+        time,
+        instructions,
+        country_id,
+        image_url,
+        how_many,
+        ingredients,
+        is_vegan ? 1 : 0,
+      ]
+    );
+
+    res.status(201).json({
+      id: result.insertId,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
 };
 
 export const putRecipes = async (req, res) => {
