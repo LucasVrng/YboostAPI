@@ -8,20 +8,6 @@
   padding: 20px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  cursor: pointer;
-  padding: 5px 0;
-}
-
-li:hover {
-  text-decoration: underline;
-}
-
 /* Modals & other */
 .modal {
   position: fixed;

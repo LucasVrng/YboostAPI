@@ -49,7 +49,6 @@
 .recipe__info {
   margin-top: 15px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #eee;
 }
 
 /* Instructions */
@@ -66,4 +65,22 @@
   margin: auto;
   border-radius: 20px;
   border:  black 5px solid;
+}
+
+.recipe__ingredients ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.recipe__ingredients li {
+  background-color: #f0f7ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 14px;
 }

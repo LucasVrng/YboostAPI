@@ -36,7 +36,7 @@
   background-color: #f5f5f5;
 }
 
-.search-input {
+.search__input {
   font-size: 16px;
   margin-left: 10px;
   outline: none;
@@ -102,15 +102,11 @@ select {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.recipe-card h2 {
+.recipe-card__title, .recipe-card__country {
   margin-top: 0;
 }
 
-.recipe-card p {
-  margin-bottom: 0;
-}
-
-.recipe-card img {
+.recipe-card__image {
   width: 120px;
   height: 120px;
   object-fit: cover;

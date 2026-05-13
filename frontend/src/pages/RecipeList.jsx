@@ -71,7 +71,7 @@
 
             <input
               type="text"
-              className="search-input"
+              className="search__input"
               onChange={e => setSearch(e.target.value)}
               placeholder="Rechercher une recette..."
             />
@@ -108,12 +108,12 @@
           >
             <article className="recipe-card">
               <section>
-                <h2>{recipe.name}</h2>
-                <p>
+                <h2 className="recipe-card__title">{recipe.name}</h2>
+                <p className="recipe-card__country">
                   <strong>Pays :</strong> {recipe.country_name}
                 </p>
               </section>
-              <img src={recipe.image_url} />
+              <img className="recipe-card__image" src={recipe.image_url} />
             </article>
           </Link>
         ))}
