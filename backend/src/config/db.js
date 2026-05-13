@@ -6,13 +6,14 @@ import mysql from "mysql2/promise";
  */
 const pool = mysql.createPool({
   host: "localhost",
-  user: "dev",
-  password: "dev",
+  user: "root",
+  password: "",
   database: "yboost_db",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
   charset: "utf8mb4",
+  port: "3306"
 });
 
 pool.query("SET NAMES utf8mb4");
