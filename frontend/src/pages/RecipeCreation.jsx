@@ -65,7 +65,7 @@ function RecipeCreation() {
           type="number"
           id="time"
           name="time"
-          placeholder="Temps de cuisson"
+          placeholder="Temps de cuisson (en minutes)"
           value={formData.time}
           onChange={handleChange}
           disabled={loading}
@@ -100,7 +100,7 @@ function RecipeCreation() {
           type="text"
           id="image_url"
           name="image_url"
-          placeholder="Image url"
+          placeholder="Lien de l'image"
           value={formData.image_url}
           onChange={handleChange}
           disabled={loading}
@@ -109,7 +109,7 @@ function RecipeCreation() {
           type="text"
           id="how_many"
           name="how_many"
-          placeholder="How many"
+          placeholder="Pour combien de personnes"
           value={formData.how_many}
           onChange={handleChange}
           disabled={loading}

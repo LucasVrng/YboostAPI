@@ -3,6 +3,8 @@
   margin: auto;
   padding: 25px;
   font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  width: 100%;         
 }
 
 /* Bouton retour */
@@ -60,7 +62,8 @@
 
 .recipe__image {
   width: 80%;
-  height: auto;
+  max-height: 300px;
+  object-fit: cover;
   display: block;
   margin: auto;
   border-radius: 20px;
@@ -83,4 +86,23 @@
   border-radius: 20px;
   padding: 5px 14px;
   font-size: 14px;
+}
+
+@media (max-width: 728px) {
+  .container {
+    padding: 15px;
+  }
+
+  .recipe {
+    padding: 15px;
+  }
+
+  .recipe__header h1 {
+    font-size: 1.3em;
+  }
+
+  .recipe__image {
+    width: 100%;
+    border-radius: 12px;
+  }
 }
