@@ -60,19 +60,22 @@ export const postRecipes = async (req, res) => {
       country,
     } = req.body;
 
-    // récupérer l'id du pays
+    // récupérer l'id du pays ou l'insérer
     const [countryRows] = await pool.query(
       "SELECT id FROM country WHERE name = ?",
       [country]
     );
 
+    let country_id;
     if (countryRows.length === 0) {
-      return res.status(400).json({
-        message: "Pays invalide",
-      });
+      const [insertResult] = await pool.query(
+        "INSERT INTO country (name) VALUES (?)",
+        [country]
+      );
+      country_id = insertResult.insertId;
+    } else {
+      country_id = countryRows[0].id;
     }
-
-    const country_id = countryRows[0].id;
 
     const [result] = await pool.query(
       `INSERT INTO recipes

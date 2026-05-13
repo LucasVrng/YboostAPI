@@ -1,9 +1,7 @@
-import { useMemo, useState } from "react";
-import CountryList from "react-select-country-list";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import countryList from "react-select-country-list";
+import countryList from 'react-select-country-list';
 import "./RecipeCreation.css";
-
 function RecipeCreation() {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +16,7 @@ function RecipeCreation() {
 
   const [ error, setError ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const countries = useMemo(() => countryList().getData(), []);
+  const countries = useMemo(() => countryList().getData().map(c => c.label), []);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -92,9 +90,9 @@ function RecipeCreation() {
           required
         >
           <option value="">Pays d'origine</option>
-          {countries.map((c) => (
-            <option key={c.value} value={c.label}>
-              {c.label}
+          {countries.map((country) => (
+            <option key={country} value={country}>
+              {country}
             </option>
           ))}
         </select>
