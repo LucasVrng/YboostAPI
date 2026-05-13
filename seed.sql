@@ -97,7 +97,7 @@ INSERT INTO recipes (name, time, instructions, country_id, image_url, how_many, 
 -- FRANCE (country_id = 1)
 ('Quiche Lorraine', 60,
 '1. Préchauffer le four à 180°C.\n2. Étaler la pâte brisée dans un moule.\n3. Faire revenir le bacon coupé en lardons.\n4. Mélanger les oeufs, la crème fraîche, le gruyère râpé, sel et poivre.\n5. Disposer les lardons sur la pâte et verser la préparation.\n6. Enfourner 35 minutes jusqu\'à dorure.',
-1, 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=800', 4,
+1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm1uuLXdO-BTLyoq89KKLCsUE11kTzWxg1zg&s', 4,
 'Pâte brisée, lardons, oeufs, crème fraîche, gruyère', 0),
 
 ('Boeuf Bourguignon', 180,
@@ -129,7 +129,7 @@ INSERT INTO recipes (name, time, instructions, country_id, image_url, how_many, 
 -- JAPON (country_id = 3)
 ('Sushi Saumon', 60,
 '1. Cuire le riz à sushi et l\'assaisonner avec vinaigre de riz, sucre et sel.\n2. Laisser refroidir à température ambiante.\n3. Couper le saumon frais en tranches fines.\n4. Former des boulettes de riz avec les mains humides.\n5. Poser une tranche de saumon sur chaque boulette.\n6. Servir avec sauce soja, wasabi et gingembre mariné.',
-3, 'https://images.unsplash.com/photo-1617196034096-2186592a4776?w=800', 4,
+3, 'https://adc-dev-images-recipes.s3.eu-west-1.amazonaws.com/shutterstock_299177891.jpg', 4,
 'Riz à sushi, saumon frais, vinaigre de riz, wasabi', 0),
 
 ('Ramen au poulet', 90,
