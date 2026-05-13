@@ -107,14 +107,16 @@
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <article className="recipe-card">
-              <h2>{recipe.name}</h2>
-              <p>
-                <strong>Pays :</strong> {recipe.country_name}
-              </p>
+              <section>
+                <h2>{recipe.name}</h2>
+                <p>
+                  <strong>Pays :</strong> {recipe.country_name}
+                </p>
+              </section>
+              <img src={recipe.image_url} />
             </article>
           </Link>
         ))}
-
       </main>
     );
   }

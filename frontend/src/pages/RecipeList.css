@@ -91,6 +91,10 @@ select {
   margin-bottom: 15px;
   transition: 0.2s ease;
   background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .recipe-card:hover {
@@ -106,9 +110,21 @@ select {
   margin-bottom: 0;
 }
 
+.recipe-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 @media (max-width: 728px){
   .header {
     flex-direction: column;
     gap: 20px;
+  }
+
+  .recipe-card {
+    flex-direction: column;
+    text-align: center;
   }
 }
