@@ -47,7 +47,7 @@ npm start
 4. Le frontend s’exécute par défaut sur :
 
 ```
-http://localhost:3000
+http://localhost:5173/
 ```
 
 ## Notes sur les variables d’environnement
@@ -80,7 +80,7 @@ npm start
 ### Frontend
 
 ```bash
-npm start
+npm run dev
 ```
 
 ```bash
